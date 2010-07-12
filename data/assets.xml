@@ -1,0 +1,11 @@
+<assets>
+  <asset name="cursor" file="cursor.png"
+         type="image" />
+
+  
+  <!-- rooms -->
+  <asset name="office" file="backgrounds/office.png"
+         type="image" />
+  <asset name="cat_on_computer" file="backgrounds/cat-on-computer.png"
+         type="image" />
+</assets>

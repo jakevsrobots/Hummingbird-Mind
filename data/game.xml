@@ -1,0 +1,7 @@
+<game startingRoom="office">
+  <room title="Home Office" name="office" background="office">
+    <hotspot x="580" y="206" width="93" height="86" />
+  </room>
+  <room title="Computer screen" name="computer-screen" background="cat_on_computer">
+  </room>
+</game>
