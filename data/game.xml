@@ -15,7 +15,9 @@
            type="image" />
   </assets>
 
-  <!-- ###############  SCENES  ############### -->  
+  <!-- ###############  SCENES  ############### -->
+  
+  <!-- Starting office -->
   <scenes firstScene="office">
     <scene title="Home Office" name="office" background="office">
       <dialog>
@@ -23,9 +25,9 @@
       </dialog>
       <dialog>
         <body>
-          I was starting to find myself having more and more trouble concentrating. My eyelids felt like lead, and I kept finding excuses to distract myself.
+          That day, I found it impossible to concentrate. My eyelids felt like lead, and I kept finding excuses to distract myself.
         </body>
-        <option goto="office-asleep">1. I layed my head down on the desk and closed my eyes.</option>
+        <option goto="office-asleep">1. I lay my head down on the desk and closed my eyes.</option>
         <option goto="kitchen">2. I got up and went to the kitchen to do some dishes.</option>
       </dialog>
     </scene>
@@ -33,7 +35,7 @@
     <scene title="Home Office" name="office-asleep" background="office_dark">
       <dialog>
         <body>
-          I could hear the air conditioner droning in the next room. Traffic rumbled from the overpass a few blocks away. A few crickets thrummed.
+          I could hear the air conditioner droning in the next room. Traffic rumbled from the overpass a few blocks away.
         </body>
       </dialog>
       <dialog goto="office-stork-appears">
@@ -43,17 +45,22 @@
       </dialog>
     </scene>
 
+    <!-- Stork visitor -->
     <scene title="A Large Stork Perched on the Desk" name="office-stork-appears" background="office_dark">
+      <sprite name="stork" />
+      
       <dialog>
         <body>
           "Good afternoon." A large stork was perched on the edge of my desk. "I say, have you seen my hat?"
         </body>
         <option goto="office-stork-hat-response">1. I was so stunned that I responded immediately.</option>
-        <option goto="office-stork-hat-unfamiliar">2. I was so stunned that I couldn't speak.</option>        
+        <option goto="office-stork-hat-unfamiliar">2. I was so stunned that I couldn't speak.</option>
       </dialog>
     </scene>
     
     <scene title="A Large Stork Perched on the Desk" name="office-stork-hat-response" background="office_dark">
+      <sprite name="stork" />
+      
       <dialog>
         <body>
           "I'm afraid I haven't seen your hat," I said, trying to affect a confident tone. "That is... what does it look like?"
@@ -63,15 +70,22 @@
         <body>
           "Well, it's black," said the stork, "Soft, sort of a long stocking cap. It's dreadfully clever, and has magic properties. Ring any bells?"
         </body>
-        <option goto="office-stork-hat-maybe-in-closet">1. Magic properties? I had to know more.</option>
+        <option goto="office-stork-hat-magic-properties">1. Magic properties? I had to know more.</option>
         <option goto="office-stork-hat-unfamiliar">2. Magic properties? All I had to offer was a blank stare.</option>
       </dialog>
     </scene>
 
-    <scene title="A Large Stork Perched on the Desk" name="office-stork-hat-unfamiliar">
+    <scene title="A Large Stork Perched on the Desk" name="office-stork-hat-unfamiliar" background="office_dark">
+      <sprite name="stork" />
+      
       <dialog>
         <body>
-          The stork's feathers bristled. "That damn cat has hidden it," it said, "I knew it, of course. This aggressive gesture shall be met with stern words."
+          The stork's feathers bristled. "That wretched cat has hidden it," it said, "I knew it, of course. Her aggressive gestures shall be punished with stern words."
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          XXXXXXXX
         </body>
       </dialog>
     </scene>

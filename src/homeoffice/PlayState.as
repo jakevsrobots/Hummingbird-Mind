@@ -16,8 +16,9 @@ package homeoffice {
         private var dialogText:FlxText;
         private var controls:FlxGroup;
         private var dialogOptions:FlxGroup;
-        private var controlPadding:uint = 2;
+        private var controlPadding:uint = 4;
 
+        private var sprites:FlxGroup;
         
         private var dialogIndex:uint = 0;
         private var dialogCallback:Function;
@@ -37,7 +38,16 @@ package homeoffice {
                     'background': sceneNode.@background,
                     'dialogs': []
                 };
+                
+                if(sceneNode.sprite.length()) {
+                    gameData['scenes'][sceneNode.@name]['sprites'] = [];
 
+                    for each(var spriteNode:Object in sceneNode.sprite) {
+                        gameData['scenes'][sceneNode.@name]['sprites'].push(spriteNode.@name);
+                    }
+                }
+                    
+                
                 for each(var dialogNode:XML in sceneNode.dialog) {
                     var dialogObject:Object = {};
                     
@@ -70,6 +80,8 @@ package homeoffice {
             background = new FlxSprite(0,0);
             gameCursor = new GameCursor(0,0);
 
+            sprites = new FlxGroup();
+            
             var controlGutterHeight:uint = 80;
             
             controls = new FlxGroup();
@@ -77,12 +89,16 @@ package homeoffice {
             var controlsBackground:FlxSprite = new FlxSprite(0, FlxG.height - controlGutterHeight);
             controlsBackground.createGraphic(FlxG.width, controlGutterHeight, 0xff000000);
             controls.add(controlsBackground);
-            titleText = new FlxText(controlPadding, (FlxG.height - controlGutterHeight) + controlPadding, FlxG.width - (controlPadding * 2), 'test me');
-            titleText.setFormat(Main.gameFont, 8, 0xffa0a0a0, 'left', 0xff303030);
+
+            var titleBackground:FlxSprite = new FlxSprite(0, FlxG.height - controlGutterHeight - 10);
+            titleBackground.createGraphic(FlxG.width, 10, 0xaa0c242b);
+            controls.add(titleBackground);
+            titleText = new FlxText(controlPadding, FlxG.height - controlGutterHeight - 10, FlxG.width - (controlPadding * 2), '');
+            titleText.setFormat(Main.gameFont, 8, 0xffffffff, 'left', 0xff303030);
             controls.add(titleText);
 
-            var dialogOffset:uint = (FlxG.height - controlGutterHeight) + controlPadding + titleText.height;
-            dialogText = new FlxText(controlPadding, dialogOffset, FlxG.width - (controlPadding * 2), 'testing dialog');
+            var dialogOffset:uint = (FlxG.height - controlGutterHeight) + controlPadding;// + titleText.height;
+            dialogText = new FlxText(controlPadding, dialogOffset, FlxG.width - (controlPadding * 2), '');
             dialogText.setFormat(Main.gameFont);
             controls.add(dialogText)
 
@@ -97,9 +113,10 @@ package homeoffice {
             loadScene(gameData['startingScene']);
 
             add(background);
+            add(sprites);
             add(controls);
             add(gameCursor);
-
+            
             //FlxG.showBounds = true;
         }
 
@@ -138,6 +155,15 @@ package homeoffice {
             
             currentSceneName = sceneName;
             background.loadGraphic(Main.library.getAsset(sceneData['background']));
+
+            sprites.destroy();
+            
+            if(sceneData.hasOwnProperty('sprites')) {
+                for each(var spriteName:String in sceneData['sprites']) {
+                    sprites.add(new FlxSprite(0, 0, Main.library.getAsset(spriteName)));
+                }
+            }
+            
             titleText.text = sceneData['title'];
             dialogIndex = 0;
             loadNextDialog();
@@ -177,7 +203,7 @@ package homeoffice {
                 var counter:uint = 0;
 
                 for each(var optionObject:Object in dialogObject['options']) {
-                    var yOffset:uint = dialogText.y + dialogText.height + 4 + (counter * 14);
+                    var yOffset:uint = dialogText.y + dialogText.height + 4 + (counter * 11);
                     var optionText:OptionText = new OptionText(
                         controlPadding * 2,
                         yOffset,
