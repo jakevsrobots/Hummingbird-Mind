@@ -13,7 +13,7 @@ package homeoffice {
         
         private var titleText:FlxText;
         private var uiHintText:FlxText;        
-        private var dialogText:FlxText;
+        private var dialogText:RollingText;
         private var controls:FlxGroup;
         private var dialogOptions:FlxGroup;
         private var controlPadding:uint = 4;
@@ -98,7 +98,7 @@ package homeoffice {
             controls.add(titleText);
 
             var dialogOffset:uint = (FlxG.height - controlGutterHeight) + controlPadding;// + titleText.height;
-            dialogText = new FlxText(controlPadding, dialogOffset, FlxG.width - (controlPadding * 2), '');
+            dialogText = new RollingText(controlPadding, dialogOffset, FlxG.width - (controlPadding * 2), '');
             dialogText.setFormat(Main.gameFont);
             controls.add(dialogText)
 
@@ -123,6 +123,13 @@ package homeoffice {
         override public function update():void {
             var mousePressHandled:Boolean = false;
 
+            if(FlxG.mouse.justPressed() && !mousePressHandled) {
+                if(dialogText.rolling) {
+                    dialogText.forceComplete();
+                    mousePressHandled = true;
+                }
+            }
+            
             if(FlxG.mouse.justPressed() && !mousePressHandled) {
                 if(dialogCallback != null) {
                     dialogCallback();
@@ -193,32 +200,33 @@ package homeoffice {
         }
 
         private function showDialog(dialogObject:Object):void {
-            dialogText.text = dialogObject.body;
+            var callback:Function = function():void {
+                if(dialogObject.hasOwnProperty('options')) {
 
-            dialogOptions.destroy();
-            
-            if(dialogObject.hasOwnProperty('options')) {
-                uiHintText.visible = false;
+                    var counter:uint = 0;
 
-                var counter:uint = 0;
-
-                for each(var optionObject:Object in dialogObject['options']) {
-                    var yOffset:uint = dialogText.y + dialogText.height + 4 + (counter * 11);
-                    var optionText:OptionText = new OptionText(
-                        controlPadding * 2,
-                        yOffset,
-                        FlxG.width - (controlPadding * 3),
-                        optionObject['goto'],
-                        optionObject['text']);
-                    
-                    optionText.hoverOff();
-                    
-                    counter += 1;
-                    dialogOptions.add(optionText);
+                    for each(var optionObject:Object in dialogObject['options']) {
+                        var yOffset:uint = dialogText.y + dialogText.height + 4 + (counter * 11);
+                        var optionText:OptionText = new OptionText(
+                            controlPadding * 2,
+                            yOffset,
+                            FlxG.width - (controlPadding * 3),
+                            optionObject['goto'],
+                            optionObject['text']);
+                        
+                        optionText.hoverOff();
+                        
+                        counter += 1;
+                        dialogOptions.add(optionText);
+                    }
+                } else {
+                    uiHintText.visible = true;
                 }
-            } else {
-                uiHintText.visible = true;
-            }
+            };
+
+            dialogText.displayText(dialogObject.body, callback);
+            uiHintText.visible = false;
+            dialogOptions.destroy();
         }
     }
 }

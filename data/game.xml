@@ -13,6 +13,8 @@
     <!-- sprites -->
     <asset name="stork" file="sprites/stork.png"
            type="image" />
+    <asset name="hummingbird_at_desk" file="sprites/hummingbird-at-desk.png"
+           type="image" />
   </assets>
 
   <!-- ###############  SCENES  ############### -->
@@ -21,7 +23,7 @@
   <scenes firstScene="office">
     <scene title="Home Office" name="office" background="office">
       <dialog>
-        <body>My "home office". It was really just a desk in the corner of the living room, but it was enough room for my computer and my drawer of important-things-that-should-really-be-better-organized.</body>
+        <body>My "home office." It was really just a desk in a corner of the living room, but it was enough room for my computer and drawer of important-papers-that-will-never-again-see-the-light-of-day.</body>
       </dialog>
       <dialog>
         <body>
@@ -38,28 +40,28 @@
           I could hear the air conditioner droning in the next room. Traffic rumbled from the overpass a few blocks away.
         </body>
       </dialog>
-      <dialog goto="office-stork-appears">
+      <dialog goto="office-bird-appears">
         <body>
           And, suddenly, a voice...?
         </body>
       </dialog>
     </scene>
 
-    <!-- Stork visitor -->
-    <scene title="A Large Stork Perched on the Desk" name="office-stork-appears" background="office_dark">
-      <sprite name="stork" />
+    <!-- Bird visitor -->
+    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-appears" background="office_dark">
+      <sprite name="hummingbird_at_desk" />
       
       <dialog>
         <body>
-          "Good afternoon." A large stork was perched on the edge of my desk. "I say, have you seen my hat?"
+          "Good afternoon." A small hummingbird was hovering over my desk. "I say, have you seen my hat?"
         </body>
-        <option goto="office-stork-hat-response">1. I was so stunned that I responded immediately.</option>
-        <option goto="office-stork-hat-unfamiliar">2. I was so stunned that I couldn't speak.</option>
+        <option goto="office-bird-hat-response">1. I was so stunned that I responded immediately.</option>
+        <option goto="office-bird-hat-unfamiliar">2. I was so stunned that I couldn't speak.</option>
       </dialog>
     </scene>
     
-    <scene title="A Large Stork Perched on the Desk" name="office-stork-hat-response" background="office_dark">
-      <sprite name="stork" />
+    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-hat-response" background="office_dark">
+      <sprite name="hummingbird_at_desk" />
       
       <dialog>
         <body>
@@ -68,19 +70,19 @@
       </dialog>
       <dialog>
         <body>
-          "Well, it's black," said the stork, "Soft, sort of a long stocking cap. It's dreadfully clever, and has magic properties. Ring any bells?"
+          "Well, it's black," said the hummingbird, "Soft, sort of a long stocking cap. It's easy to wash, looks clever, and has magic properties. Ring any bells?"
         </body>
-        <option goto="office-stork-hat-magic-properties">1. Magic properties? I had to know more.</option>
-        <option goto="office-stork-hat-unfamiliar">2. Magic properties? All I had to offer was a blank stare.</option>
+        <option goto="office-bird-hat-magic-properties">1. Magic properties? I had to know more.</option>
+        <option goto="office-bird-hat-unfamiliar">2. Magic properties? All I had to offer was a blank stare.</option>
       </dialog>
     </scene>
 
-    <scene title="A Large Stork Perched on the Desk" name="office-stork-hat-unfamiliar" background="office_dark">
-      <sprite name="stork" />
+    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-hat-unfamiliar" background="office_dark">
+      <sprite name="hummingbird_at_desk" />
       
       <dialog>
         <body>
-          The stork's feathers bristled. "That wretched cat has hidden it," it said, "I knew it, of course. Her aggressive gestures shall be punished with stern words."
+          The hummingbird's feathers bristled as it peevishly alternated between two spots in the air. "That wicked cat has hidden it," it said, "I knew it, of course. Her aggressive gestures shall be punished with stern words."
         </body>
       </dialog>
       <dialog>
