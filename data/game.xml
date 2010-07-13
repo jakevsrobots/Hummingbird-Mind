@@ -1,7 +1,45 @@
-<game startingRoom="office">
-  <room title="Home Office" name="office" background="office">
-    <hotspot x="580" y="206" width="93" height="86" />
-  </room>
-  <room title="Computer screen" name="computer-screen" background="cat_on_computer">
-  </room>
+<game startingScene="office">
+  <!-- ###############  ASSETS  ############### -->
+  <assets>
+    <asset name="cursor" file="cursor.png"
+           type="image" />
+    
+    <!-- backgrounds -->
+    <asset name="office" file="backgrounds/office.png"
+           type="image" />
+    <asset name="office_dark" file="backgrounds/office-dark.png"
+           type="image" />
+
+    <!-- sprites -->
+    <asset name="stork" file="sprites/stork.png"
+           type="image" />
+  </assets>
+
+  <!-- ###############  SCENES  ############### -->  
+  <scenes firstScene="office">
+    <scene title="Home Office" name="office" background="office">
+      <dialog>
+        <body>My "home office". It was really just a desk in the corner of the living room, but it was enough room for my computer and my drawer of important-things-that-should-really-be-better-organized.</body>
+      </dialog>
+      <dialog>
+        <body>
+          I was starting to find myself having more and more trouble concentrating. My eyelids felt like lead, and I kept finding excuses to distract myself.
+        </body>
+        <option goto="office-asleep">1. I layed my head down on the desk and closed my eyes.</option>
+        <option goto="kitchen">2. I got up and went to the kitchen to do some dishes.</option>
+      </dialog>
+    </scene>
+
+    <scene title="Home Office" name="office-asleep" background="office-dark">
+      <dialog>
+        <body>
+          I could hear the air conditioner droning in the next room. Traffic rumbled from the overpass a few blocks away. A few crickets thrummed.
+        </body>
+      </dialog>
+      <dialog>
+        And, suddenly, a voice...?
+      </dialog>
+    </scene>
+    
+  </scenes>
 </game>

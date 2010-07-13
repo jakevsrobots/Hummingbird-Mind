@@ -7,7 +7,7 @@ from xml.dom import minidom
 #--------------------------------------
 BASE_PATH = os.path.join(os.path.dirname(__file__), 'asset_library')
 ASSET_BASE = '/../data/'
-ASSET_XML_FILE = os.path.join(BASE_PATH, '../data/assets.xml')
+ASSET_XML_FILE = os.path.join(BASE_PATH, '../data/game.xml')
 #--------------------------------------
 
 def main():

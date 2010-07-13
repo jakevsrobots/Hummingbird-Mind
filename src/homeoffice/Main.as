@@ -8,10 +8,18 @@ package homeoffice {
         public static var bgcolor:uint = 0xff000000;
         public static var library:AssetLibrary;        
         public static var instance:Main;
+
+        [Embed(source='/../data/Antenna8.ttf', fontFamily='antenna8', embedAsCFF="false")]
+        public static var Antenna8FontClass:String;
+        [Embed(source='/../data/04B_03__.TTF', fontFamily='zerofourbee', embedAsCFF="false")]
+        public static var ZeroFourFontClass:String;
+
+        public static var gameFont:String;
         
         public function Main():void {
+            gameFont = 'zerofourbee';
+            
             Main.library = new AssetLibrary();
-
             Main.instance = this;
             
             super(300, 200, PlayState, 2);
