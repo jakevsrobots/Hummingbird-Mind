@@ -104,15 +104,23 @@ package homeoffice {
         }
 
         override public function update():void {
-            if(FlxG.mouse.justPressed()) {
+            var mousePressHandled:Boolean = false;
+
+            if(FlxG.mouse.justPressed() && !mousePressHandled) {
                 if(dialogCallback != null) {
                     dialogCallback();
+                    mousePressHandled = true;
                 }
             }
-
+            
             for each(var optionText:OptionText in dialogOptions.members) {
                 if(optionText.overlapsPoint(FlxG.mouse.x, FlxG.mouse.y)) {
                     optionText.hoverOn();
+
+                    if(FlxG.mouse.justPressed() && !mousePressHandled) {
+                        loadScene(optionText.gotoName);
+                        mousePressHandled = true;
+                    }
                 } else {
                     optionText.hoverOff();
                 }
@@ -170,7 +178,12 @@ package homeoffice {
 
                 for each(var optionObject:Object in dialogObject['options']) {
                     var yOffset:uint = dialogText.y + dialogText.height + 4 + (counter * 14);
-                    var optionText:OptionText = new OptionText(controlPadding * 2, yOffset, FlxG.width - (controlPadding * 3), optionObject['text']);
+                    var optionText:OptionText = new OptionText(
+                        controlPadding * 2,
+                        yOffset,
+                        FlxG.width - (controlPadding * 3),
+                        optionObject['goto'],
+                        optionObject['text']);
                     
                     optionText.hoverOff();
                     

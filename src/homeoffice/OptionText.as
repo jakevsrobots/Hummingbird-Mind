@@ -2,9 +2,13 @@ package homeoffice {
     import org.flixel.*;
 
     public class OptionText extends FlxText {
-        public function OptionText(X:Number, Y:Number, Width:uint, Text:String=null, EmbeddedFont:Boolean=true):void {
+        public var gotoName:String;
+        
+        public function OptionText(X:Number, Y:Number, Width:uint, gotoName:String, Text:String=null, EmbeddedFont:Boolean=true):void {
             super(X, Y, Width, Text, EmbeddedFont);
 
+            this.gotoName = gotoName;
+            
             _tf.backgroundColor = 0xffffffff;
             
             height = 10;

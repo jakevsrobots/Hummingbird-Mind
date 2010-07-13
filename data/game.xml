@@ -30,14 +30,49 @@
       </dialog>
     </scene>
 
-    <scene title="Home Office" name="office-asleep" background="office-dark">
+    <scene title="Home Office" name="office-asleep" background="office_dark">
       <dialog>
         <body>
           I could hear the air conditioner droning in the next room. Traffic rumbled from the overpass a few blocks away. A few crickets thrummed.
         </body>
       </dialog>
+      <dialog goto="office-stork-appears">
+        <body>
+          And, suddenly, a voice...?
+        </body>
+      </dialog>
+    </scene>
+
+    <scene title="A Large Stork Perched on the Desk" name="office-stork-appears" background="office_dark">
       <dialog>
-        And, suddenly, a voice...?
+        <body>
+          "Good afternoon." A large stork was perched on the edge of my desk. "I say, have you seen my hat?"
+        </body>
+        <option goto="office-stork-hat-response">1. I was so stunned that I responded immediately.</option>
+        <option goto="office-stork-hat-unfamiliar">2. I was so stunned that I couldn't speak.</option>        
+      </dialog>
+    </scene>
+    
+    <scene title="A Large Stork Perched on the Desk" name="office-stork-hat-response" background="office_dark">
+      <dialog>
+        <body>
+          "I'm afraid I haven't seen your hat," I said, trying to affect a confident tone. "That is... what does it look like?"
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          "Well, it's black," said the stork, "Soft, sort of a long stocking cap. It's dreadfully clever, and has magic properties. Ring any bells?"
+        </body>
+        <option goto="office-stork-hat-maybe-in-closet">1. Magic properties? I had to know more.</option>
+        <option goto="office-stork-hat-unfamiliar">2. Magic properties? All I had to offer was a blank stare.</option>
+      </dialog>
+    </scene>
+
+    <scene title="A Large Stork Perched on the Desk" name="office-stork-hat-unfamiliar">
+      <dialog>
+        <body>
+          The stork's feathers bristled. "That damn cat has hidden it," it said, "I knew it, of course. This aggressive gesture shall be met with stern words."
+        </body>
       </dialog>
     </scene>
     
