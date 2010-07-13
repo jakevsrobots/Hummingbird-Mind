@@ -1,8 +1,8 @@
 package homeoffice {
     import org.flixel.*;
     import AssetLibrary;
-
-    [SWF(width="600", height="250", backgroundColor="#000000")];
+    
+    [SWF(width="600", height="400", backgroundColor="#000000")];
 
     public class Main extends FlxGame {
         public static var bgcolor:uint = 0xff000000;
@@ -14,7 +14,7 @@ package homeoffice {
 
             Main.instance = this;
             
-            super(300, 130, PlayState, 2);
+            super(300, 200, PlayState, 2);
             FlxState.bgColor = Main.bgcolor;
         }
     }
