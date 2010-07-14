@@ -1,4 +1,4 @@
-package homeoffice {
+package hummingbird {
     import org.flixel.*;
     
     public class MenuState extends FlxState {

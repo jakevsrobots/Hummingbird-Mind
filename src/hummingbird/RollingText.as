@@ -1,4 +1,4 @@
-package homeoffice {
+package hummingbird {
     import org.flixel.*;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;    

@@ -68,9 +68,9 @@ def build_assets():
 
 def build_swf():
     if os.name == 'posix':
-        build_command = "mxmlc src/homeoffice/Main.as -source-path=src/ -source-path=asset_library/ -output output/HomeOffice.swf -static-link-runtime-shared-libraries -default-size 600 400 && flashplayer_10 output/HomeOffice.swf"
+        build_command = "mxmlc src/hummingbird/Main.as -source-path=src/ -source-path=asset_library/ -output output/HummingbirdMind.swf -static-link-runtime-shared-libraries -default-size 600 400 && flashplayer_10 output/HummingbirdMind.swf"
     elif os.name == 'nt':
-        build_command = 'mxmlc.exe src/homeoffice/Main.as -source-path=src/ -output output/HomeOffice.swf -static-link-runtime-shared-libraries -default-size 600 400 && /c/flex4/runtimes/player/10/win/FlashPlayer.exe output/HomeOffice.swf'
+        build_command = 'mxmlc.exe src/hummingbird/Main.as -source-path=src/ -output output/HummingbirdMind.swf -static-link-runtime-shared-libraries -default-size 600 400 && /c/flex4/runtimes/player/10/win/FlashPlayer.exe output/HummingbirdMind.swf'
     else:
         print "no build command found for OS ", os.name
         return
