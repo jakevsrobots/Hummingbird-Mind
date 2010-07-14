@@ -11,6 +11,10 @@
            type="image" />
     <asset name="office_dark" file="backgrounds/office-dark.png"
            type="image" />
+    <asset name="kitchen_sink" file="backgrounds/kitchen-sink.png"
+           type="image" />
+    <asset name="cabinet_above_blender" file="backgrounds/cabinet-above-blender.png"
+           type="image" />
 
     <!-- sprites -->
     <asset name="stork" file="sprites/stork.png"
@@ -139,6 +143,40 @@
       </dialog>
       <dialog goto="short-start-office">
         <body>The dream faded quickly, but I was left with the vestiges of an image: a kitten wearing a stocking cap. A cat in a hat?</body>
+      </dialog>
+    </scene>
+
+    <!-- Kitchen sink -->
+    <scene title="Kitchen Sink" name="kitchen" background="kitchen_sink">
+      <dialog>
+        <body>The counters were piled with dirty plates and silverware. We'd had a dinner party the weekend before, and never really caught up with the dishes. I started the hot water tap.</body>
+      </dialog>
+      <dialog>
+        <body>Running hot water always relaxed me; even that day, when the apartment was at least 80 degrees. I was thoughtlessly collecting dishes from the counters into the sink, when I realized I had forgotten something:</body>
+        <option>The mail!</option>        
+        <option goto="kitchen-remember-dish-soap">The dish soap!</option>
+      </dialog>
+    </scene>
+
+    <scene title="Kitchen Sink" name="kitchen-remember-dish-soap" background="kitchen_sink">
+      <dialog>
+        <body>
+          I didn't know where the dish soap was; my roommate was always stashing it somewhere creative.
+        </body>
+        <option goto="cabinet-above-blender">It might have been in the cabinet above the blender.</option>        
+        <option>It might have been under the sink.</option>
+        <option>It might have been in the refrigerator.</option>
+        <option goto="short-start-office">I gave up and went back into my office.</option>                
+      </dialog>
+    </scene>
+    
+    <scene title="The Cabinet Above the Blender" name="cabinet-above-blender" background="cabinet_above_blender">
+      <dialog>
+        <body>
+          It didn't look like the dish soap was in the cabinet.
+        </body>
+        <option>But I saw a photo of my cat, Chester, hung on the door.</option>
+        <option goto="kitchen-remember-dish-soap">So I kept looking elsewhere.</option>
       </dialog>
     </scene>
     
