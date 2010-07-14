@@ -152,7 +152,7 @@
         <body>The counters were piled with dirty plates and silverware. We'd had a dinner party the weekend before, and never really caught up with the dishes. I started the hot water tap.</body>
       </dialog>
       <dialog>
-        <body>Running hot water always relaxed me; even that day, when the apartment was at least 80 degrees. I was thoughtlessly collecting dishes from the counters into the sink, when I realized I had forgotten something:</body>
+        <body>Running hot water always relaxed me; even that summer day, when the apartment was at least 80 degrees. I was distractedly collecting dishes from the counters into the sink, when I realized I had forgotten something:</body>
         <option>The mail!</option>        
         <option goto="kitchen-remember-dish-soap">The dish soap!</option>
       </dialog>
@@ -173,7 +173,7 @@
     <scene title="The Cabinet Above the Blender" name="cabinet-above-blender" background="cabinet_above_blender">
       <dialog>
         <body>
-          It didn't look like the dish soap was in the cabinet.
+          Olive oil, vinegar, chili powder, and fruit snacks. It didn't look like the dish soap was in the cabinet.
         </body>
         <option>But I saw a photo of my cat, Chester, hung on the door.</option>
         <option goto="kitchen-remember-dish-soap">So I kept looking elsewhere.</option>
