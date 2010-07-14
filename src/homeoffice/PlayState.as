@@ -2,10 +2,11 @@ package homeoffice {
     import org.flixel.*;
 
     public class PlayState extends FlxState {
+        private var currentBackgroundName:String;
         private var background:FlxSprite;
         private var gameData:Object;
         private var currentSceneName:String;
-        private var gameCursor:FlxSprite;
+        private var gameCursor:GameCursor;
 
         [Embed(source="/../data/game.xml",
                 mimeType="application/octet-stream")]
@@ -22,8 +23,12 @@ package homeoffice {
         
         private var dialogIndex:uint = 0;
         private var dialogCallback:Function;
+
+        private var gameFlags:Object;
         
         override public function create():void {
+            gameFlags = {};
+            
             var gameDataXML:XML = new XML(new GameXMLFile());
 
             gameData = {
@@ -65,8 +70,12 @@ package homeoffice {
                                 'text': optionNode.toString()
                             };
 
-                            if(optionNode.@goto) {
+                            if(optionNode.@goto.toString()) {
                                 optionObject['goto'] = optionNode.@goto.toString();
+                            }
+
+                            if(optionNode.@conditionFlag.toString()) {
+                                optionObject['conditionFlag'] = optionNode.@conditionFlag.toString();
                             }
 
                             dialogObject['options'].push(optionObject);
@@ -109,7 +118,13 @@ package homeoffice {
             uiHintText = new FlxText(controlPadding, FlxG.height - controlPadding - 10, FlxG.width - (controlPadding * 2), '(click to continue)');
             uiHintText.setFormat(Main.gameFont, 8, 0xffffffff, 'right');
             controls.add(uiHintText);
-            
+
+            FlxG.flash.start(0xff000000, 0.5, function():void {
+                    FlxG.flash.stop();
+                });
+
+            currentBackgroundName = gameData['scenes'][gameData['startingScene']]['background'];
+            background.loadGraphic(Main.library.getAsset(currentBackgroundName));            
             loadScene(gameData['startingScene']);
 
             add(background);
@@ -141,7 +156,7 @@ package homeoffice {
                 if(optionText.overlapsPoint(FlxG.mouse.x, FlxG.mouse.y)) {
                     optionText.hoverOn();
 
-                    if(FlxG.mouse.justPressed() && !mousePressHandled) {
+                    if(FlxG.mouse.justPressed() && !optionText.hidden && !mousePressHandled) {
                         loadScene(optionText.gotoName);
                         mousePressHandled = true;
                     }
@@ -161,7 +176,20 @@ package homeoffice {
             }
             
             currentSceneName = sceneName;
-            background.loadGraphic(Main.library.getAsset(sceneData['background']));
+            if(sceneData['background'] != currentBackgroundName) {
+                currentBackgroundName = sceneData['background'];
+                
+                // Hide the quick background switch with a short fade.
+                FlxG.fade.start(0xff000000, 0.125, function():void {
+                        FlxG.fade.stop();
+                        
+                        background.loadGraphic(Main.library.getAsset(currentBackgroundName));
+                        
+                        FlxG.flash.start(0xff000000, 0.125, function():void {
+                                FlxG.flash.stop();
+                            });
+                    });
+            }
 
             sprites.destroy();
             
@@ -205,14 +233,25 @@ package homeoffice {
 
                     var counter:uint = 0;
 
+                    var yOffsetAccum:uint = dialogText.y + dialogText.height + 4;;
+                    
                     for each(var optionObject:Object in dialogObject['options']) {
-                        var yOffset:uint = dialogText.y + dialogText.height + 4 + (counter * 11);
                         var optionText:OptionText = new OptionText(
-                            controlPadding * 2,
-                            yOffset,
-                            FlxG.width - (controlPadding * 3),
+                            controlPadding,
+                            yOffsetAccum,
+                            FlxG.width - (controlPadding * 2),
                             optionObject['goto'],
-                            optionObject['text']);
+                            optionObject['text'],
+                            counter + 1
+                        );
+
+                        yOffsetAccum += optionText.height + 2;
+
+                        if(optionObject.hasOwnProperty('conditionFlag')) {
+                            if(!getFlag(optionObject['conditionFlag'])) {
+                                optionText.makeHidden();
+                            }
+                        }
                         
                         optionText.hoverOff();
                         
@@ -227,6 +266,22 @@ package homeoffice {
             dialogText.displayText(dialogObject.body, callback);
             uiHintText.visible = false;
             dialogOptions.destroy();
+        }
+
+        private function setFlag(flagName:String, flagValue:String):void {
+            if(flagValue == "1") {
+                gameFlags[flagName] = true;
+            } else {
+                gameFlags[flagName] = false;
+            }
+        }
+
+        private function getFlag(flagName:String):Boolean {
+            if(gameFlags.hasOwnProperty(flagName) && gameFlags[flagName]) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }

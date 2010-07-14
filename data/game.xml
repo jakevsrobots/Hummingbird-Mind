@@ -3,6 +3,8 @@
   <assets>
     <asset name="cursor" file="cursor.png"
            type="image" />
+    <asset name="menuBackground" file="menu-background.png"
+           type="image" />
     
     <!-- backgrounds -->
     <asset name="office" file="backgrounds/office.png"
@@ -23,14 +25,24 @@
   <scenes firstScene="office">
     <scene title="Home Office" name="office" background="office">
       <dialog>
-        <body>My "home office." It was really just a desk in a corner of the living room, but it was enough room for my computer and drawer of important-papers-that-will-never-again-see-the-light-of-day.</body>
+        <body>My "home office." It was really just a desk in a corner of the living room, but it was enough space for my computer and drawer of important-papers-that-I-pretend-do-not-exist.</body>
       </dialog>
       <dialog>
         <body>
-          That day, I found it impossible to concentrate. My eyelids felt like lead, and I kept finding excuses to distract myself.
+          That day, I couldn't manage to concentrate. My eyelids felt like lead, and I kept finding excuses to distract myself.
         </body>
-        <option goto="office-asleep">1. I lay my head down on the desk and closed my eyes.</option>
-        <option goto="kitchen">2. I got up and went to the kitchen to do some dishes.</option>
+        <option goto="office-asleep">I lay my head down on the desk and closed my eyes.</option>
+        <option goto="kitchen">I got up and went to the kitchen to do some dishes.</option>
+      </dialog>
+    </scene>
+
+    <scene title="Home Office" name="short-start-office" background="office">
+      <dialog>
+        <body>
+          I sat at my desk, unable to concentrate. My eyelids felt like lead, and I kept finding excuses to distract myself.
+        </body>
+        <option goto="office-asleep">I lay my head down on the desk and closed my eyes.</option>
+        <option goto="kitchen">I got up and went to the kitchen to do some dishes.</option>
       </dialog>
     </scene>
 
@@ -55,8 +67,8 @@
         <body>
           "Good afternoon." A small hummingbird was hovering over my desk. "I say, have you seen my hat?"
         </body>
-        <option goto="office-bird-hat-response">1. I was so stunned that I responded immediately.</option>
-        <option goto="office-bird-hat-unfamiliar">2. I was so stunned that I couldn't speak.</option>
+        <option goto="office-bird-hat-response">I was so stunned that I responded immediately.</option>
+        <option goto="office-bird-hat-unfamiliar">I was so stunned that I couldn't speak.</option>
       </dialog>
     </scene>
     
@@ -72,23 +84,61 @@
         <body>
           "Well, it's black," said the hummingbird, "Soft, sort of a long stocking cap. It's easy to wash, looks clever, and has magic properties. Ring any bells?"
         </body>
-        <option goto="office-bird-hat-magic-properties">1. Magic properties? I had to know more.</option>
-        <option goto="office-bird-hat-unfamiliar">2. Magic properties? All I had to offer was a blank stare.</option>
+        <option goto="office-bird-hat-magic-properties">Magic properties? I had to know more.</option>
+        <option goto="office-bird-hat-unfamiliar">Magic properties? All I had to offer was a blank stare.</option>
       </dialog>
     </scene>
 
+    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-hat-magic-properties" background="office_dark">
+      <sprite name="hummingbird_at_desk" />
+
+      <dialog>
+        <body>
+          The hummingbird must have sensed my interest pique at his mention of magic. "Oh, it is a powerful hat, my friend. Anyone who dons it... well, I'm not quite convinced you're ready to hear about it..."
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          What a snob!
+        </body>
+        <option goto="office-bird-hat-unfamiliar">"Well, where do you think it could be?" I asked.</option>
+        <option goto="office-bird-hat-magic-denial">"Don't be coy, I can handle it!" I insisted.</option>
+        <option goto="" conditionFlag="someSecretFlag">A secret third option here.</option>
+      </dialog>
+    </scene>
+
+    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-hat-magic-denial" background="office_dark">
+      <sprite name="hummingbird_at_desk" />
+
+      <dialog goto="office-bird-hat-unfamiliar">
+        <body>
+          "I admire your confidence, partner, but I'm afraid I won't be persuaded." I could tell the hummingbird was committed to silence.
+        </body>
+      </dialog>
+    </scene>
+    
     <scene title="A Hummingbird Hovering at the Desk" name="office-bird-hat-unfamiliar" background="office_dark">
       <sprite name="hummingbird_at_desk" />
       
       <dialog>
         <body>
-          The hummingbird's feathers bristled as it peevishly alternated between two spots in the air. "That wicked cat has hidden it," it said, "I knew it, of course. Her aggressive gestures shall be punished with stern words."
+          The hummingbird's feathers bristled as it peevishly alternated between two spots in the air. "That wicked kitten has hidden it," it said, "I knew it, of course. Where she walks, a cloud of fur and mischief follows."
         </body>
       </dialog>
-      <dialog>
+      <dialog goto="office-wake-up">
         <body>
-          XXXXXXXX
+          "If you do see my hat, or that amoral thief of a kitten, please fall asleep at your desk again and return it to me, won't you?"
         </body>
+      </dialog>
+    </scene>
+
+    <!-- Waking up in office -->
+    <scene title="Home Office" name="office-wake-up" background="office">
+      <dialog>
+        <body>The hummingbird's words startled me awake. I lifted my head and wiped a bit of drool off my desk with the end of my sleeve; how embarassing.</body>
+      </dialog>
+      <dialog goto="short-start-office">
+        <body>The dream faded quickly, but I was left with the vestiges of an image: a kitten wearing a stocking cap. A cat in a hat?</body>
       </dialog>
     </scene>
     

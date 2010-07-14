@@ -22,7 +22,8 @@ package homeoffice {
             Main.library = new AssetLibrary();
             Main.instance = this;
             
-            super(300, 200, PlayState, 2);
+            super(300, 200, MenuState, 2);
+            //super(300, 200, PlayState, 2);
             FlxState.bgColor = Main.bgcolor;
         }
     }
