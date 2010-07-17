@@ -56,8 +56,8 @@ package hummingbird {
             var letters:String = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW1234567890';
 
             for(var i:int=0; i < rawText.length; i++) {
-                if(letters.indexOf(text.charAt(i)) == -1) {
-                    newText += text.charAt(i);
+                if(letters.indexOf(rawText.charAt(i)) == -1) {
+                    newText += rawText.charAt(i);
                 } else {
                     newText += '-';                    
                 }

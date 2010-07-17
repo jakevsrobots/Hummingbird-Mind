@@ -60,7 +60,7 @@ package hummingbird {
 
                             // Force the line to wrap now instead of partially writing the
                             // word on the above line.
-                            if(lineWidth > this.width) {
+                            if(lineWidth >= this.width) {
                                 nextChar = "\n";
                             }
                         }

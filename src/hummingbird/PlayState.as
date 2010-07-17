@@ -47,11 +47,18 @@ package hummingbird {
                 if(sceneNode.sprite.length()) {
                     gameData['scenes'][sceneNode.@name]['sprites'] = [];
 
-                    for each(var spriteNode:Object in sceneNode.sprite) {
+                    for each(var spriteNode:XML in sceneNode.sprite) {
                         gameData['scenes'][sceneNode.@name]['sprites'].push(spriteNode.@name);
                     }
                 }
-                    
+
+                if(sceneNode.setFlag.length()) {
+                    gameData['scenes'][sceneNode.@name]['flags'] = {};
+
+                    for each(var flagNode:XML in sceneNode.setFlag) {
+                        gameData['scenes'][sceneNode.@name]['flags'][flagNode.@name] = flagNode.@value;
+                    }
+                }
                 
                 for each(var dialogNode:XML in sceneNode.dialog) {
                     var dialogObject:Object = {};
@@ -196,6 +203,12 @@ package hummingbird {
             if(sceneData.hasOwnProperty('sprites')) {
                 for each(var spriteName:String in sceneData['sprites']) {
                     sprites.add(new FlxSprite(0, 0, Main.library.getAsset(spriteName)));
+                }
+            }
+
+            if(sceneData.hasOwnProperty('flags')) {
+                for(var flagName:String in sceneData['flags']) {
+                    setFlag(flagName, sceneData['flags'][flagName]);
                 }
             }
             

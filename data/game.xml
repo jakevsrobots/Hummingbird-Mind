@@ -15,11 +15,17 @@
            type="image" />
     <asset name="cabinet_above_blender" file="backgrounds/cabinet-above-blender.png"
            type="image" />
+    <asset name="cabinet_dark" file="backgrounds/cabinet-dark.png"
+           type="image" />
+    <asset name="under_the_sink" file="backgrounds/under-the-sink.png"
+           type="image" />
+    <asset name="in_refrigerator" file="backgrounds/in-refrigerator.png"
+           type="image" />
 
     <!-- sprites -->
-    <asset name="stork" file="sprites/stork.png"
-           type="image" />
     <asset name="hummingbird_at_desk" file="sprites/hummingbird-at-desk.png"
+           type="image" />
+    <asset name="cat" file="sprites/cat.png"
            type="image" />
   </assets>
 
@@ -123,6 +129,7 @@
     
     <scene title="A Hummingbird Hovering at the Desk" name="office-bird-hat-unfamiliar" background="office_dark">
       <sprite name="hummingbird_at_desk" />
+      <setFlag name="hummingbirdMentionedKitten" value="1" />
       
       <dialog>
         <body>
@@ -149,34 +156,233 @@
     <!-- Kitchen sink -->
     <scene title="Kitchen Sink" name="kitchen" background="kitchen_sink">
       <dialog>
-        <body>The counters were piled with dirty plates and silverware. We'd had a dinner party the weekend before, and never really caught up with the dishes. I started the hot water tap.</body>
+        <body>The counters were piled with dirty plates and silverware from a dinner party the weekend before. I started the hot water tap.</body>
       </dialog>
       <dialog>
         <body>Running hot water always relaxed me; even that summer day, when the apartment was at least 80 degrees. I was distractedly collecting dishes from the counters into the sink, when I realized I had forgotten something:</body>
-        <option>The mail!</option>        
         <option goto="kitchen-remember-dish-soap">The dish soap!</option>
+        <option>The mail!</option>
       </dialog>
     </scene>
 
     <scene title="Kitchen Sink" name="kitchen-remember-dish-soap" background="kitchen_sink">
       <dialog>
         <body>
-          I didn't know where the dish soap was; my roommate was always stashing it somewhere creative.
+          I didn't know where the dish soap was; I often stashed it somewhere creative and then forgot.
         </body>
-        <option goto="cabinet-above-blender">It might have been in the cabinet above the blender.</option>        
-        <option>It might have been under the sink.</option>
-        <option>It might have been in the refrigerator.</option>
         <option goto="short-start-office">I gave up and went back into my office.</option>                
+        <option goto="cabinet-above-blender">It might have been in the cabinet above the blender.</option>        
+        <option goto="under-the-sink">It might have been under the sink.</option>
+        <option conditionFlag="catRevealedDishSoapLocation" goto="in-the-refrigerator">It might have been in the refrigerator.</option>
       </dialog>
     </scene>
-    
+
+    <scene title="In the Refrigerator" name="in-the-refrigerator" background="in_refrigerator">
+      <dialog>
+        <body>
+          The refrigerator seemed like an unlikely place for the dish soap.
+        </body>
+        <option goto="kitchen-remember-dish-soap">So I kept looking elsewhere.</option>
+      </dialog>
+    </scene>
+
     <scene title="The Cabinet Above the Blender" name="cabinet-above-blender" background="cabinet_above_blender">
       <dialog>
         <body>
           Olive oil, vinegar, chili powder, and fruit snacks. It didn't look like the dish soap was in the cabinet.
         </body>
-        <option>But I saw a photo of my cat, Chester, hung on the door.</option>
+        <option goto="cabinet-cat-photo">But I saw a photo of my cat, Eloise, hung on the door.</option>
         <option goto="kitchen-remember-dish-soap">So I kept looking elsewhere.</option>
+      </dialog>
+    </scene>
+
+    <scene title="The Cabinet Above the Blender" name="cabinet-cat-photo" background="cabinet_above_blender">
+      <dialog>
+        <body>
+          Hung up on the cabinet door was a photo of my cat, Eloise, with a wild-eyed and dangerous expression. Just some frozen moment captured mid-thrash. It was impossible to know what she might have been thinking or feeling in that moment; was she playing or fighting?
+        </body>
+        <option goto="what-the-cat-would-say">What would Eloise say about this photo if she could talk?</option>
+        <option goto="kitchen-remember-dish-soap">I went back to looking for the dish soap</option>
+      </dialog>
+    </scene>
+    
+    <scene title="Under the Sink" name="under-the-sink" background="under_the_sink">
+      <dialog>
+        <body>
+          When I looked under the sink, I only found a few brilo pads.
+        </body>
+        <option goto="kitchen-remember-dish-soap">I decided to look elsewhere.</option>
+      </dialog>
+    </scene>
+
+    <!-- Wondering about the cat's thoughts -->
+    <scene title="What the Cat Would Say If She Could Talk" name="what-the-cat-would-say" background="cabinet_dark">
+      <sprite name="cat" />
+      
+      <dialog>
+        <body>
+          "What a glorious moment," she might say. "But you have it from the wrong angle. I would prefer to be towering above the camera, claws extended. The camera pans in a graceful sweep: it is a gazelle. I am a panther."
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          She would draw herself out of her reverie and look intensely at me, as though she had just noticed I was there.
+        </body>
+        <option goto="cat-surprised-uncomfortable">I would be a little surprised and uncomfortable.</option>
+        <option goto="cat-scratch-ear">I would scratch her behind her ear.</option>
+        <option conditionFlag="hummingbirdMentionedKitten" goto="cat-ask-about-hummingbird-hat">I would ask about the hummingbird's hat.</option>
+        <option conditionFlag="catAskedRiddle" goto="cat-ask-riddle">I would ask her to try the riddle again.</option>        
+      </dialog>
+    </scene>
+
+    <scene title="What the Cat Would Say If She Could Talk" name="cat-surprised-uncomfortable" background="cabinet_dark">
+      <sprite name="cat" />
+      
+      <dialog>
+        <body>
+          Eloise would give me a stern look and then turn away. "Don't be so quiet," she'd say, "If you have nothing to say, at least turn on a dripping faucet or something."
+        </body>
+        <option goto="cat-scratch-ear">I would scratch her behind her ear.</option>        
+        <option conditionFlag="hummingbirdMentionedKitten" goto="cat-ask-about-hummingbird-hat">I would ask about the hummingbird's hat.</option>        
+      </dialog>
+    </scene>
+
+    <scene title="What the Cat Would Say If She Could Talk" name="cat-scratch-ear" background="cabinet_dark">
+      <sprite name="cat" />
+
+      <dialog goto="cat-waiting-for-question">
+        <body>
+          Eloise would arch her neck and look away as I scratched behind her ear, half submitting to the joy of it and half pretending I didn't exist.
+        </body>
+      </dialog>
+    </scene>
+
+    <scene title="What the Cat Would Say If She Could Talk" name="cat-waiting-for-question" background="cabinet_dark">
+      <sprite name="cat" />
+      
+      <dialog>
+        <body>
+          "Now," she would say, "Was there something you needed to ask me?"
+        </body>
+        <option goto="cat-ask-about-dish-soap">I would ask if she knew where the dish soap was.</option>
+        <option conditionFlag="hummingbirdMentionedKitten" goto="cat-ask-about-hummingbird-hat">I would ask about the hummingbird's hat.</option>
+        <option goto="cabinet-cat-photo">With nothing to ask, I would excuse myself.</option>
+      </dialog>
+    </scene>
+
+    <scene title="What the Cat Would Say If She Could Talk" name="cat-ask-about-dish-soap" background="cabinet_dark">
+      <sprite name="cat" />
+      <setFlag name="catAskedRiddle" value="1" />
+      
+      <dialog>
+        <body>
+          Eloise would look directly at me. "Ah," she would say, "The mysterious missing dish soap. I know where it is; I watch every placement of every item in this house quite closely."
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          "I will share this information with you. But first, I need you to answer a riddle for me. You see, I have more in common with the Sphinx than just our equally mighty and imposing presences. I also am fond of riddles."
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          Her mouth would crack wide with a yawn, her gaze finally settling back on me. "Here is your riddle," she would say. "What kind of bird lives in the park by your house?"
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          I might be a bit surprised. "Is that ... really a riddle?" I'd ask, with as much deference as I could muster.
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          "Of course it is!" She would insist, "A riddle is, by definition, an inscrutable question asked by a powerful cat. Do you have an answer?"
+        </body>
+        <option conditionFlag="beenToPark" goto="cat-no-birds">"There are no birds in the park," I would say.</option>
+        <option conditionFlag="seenCloudBirds" goto="cat-cloud-birds">"Cloud birds," I would say.</option>
+        <option goto="cat-riddle-no-answer">"I'm afraid I don't," I would say.</option>
+      </dialog>
+       
+    </scene>
+
+    <scene title="What the Cat Would Say If She Could Talk" name="cat-ask-riddle" background="cabinet_dark">
+      <sprite name="cat" />
+      <setFlag name="catAskedRiddle" value="1" />
+
+      <dialog>
+        <body>
+          "Here is your riddle," she would say. "What kind of bird lives in the park by your house?"
+        </body>
+        <option conditionFlag="beenToPark" goto="cat-no-birds">"There are no birds in the park," I would answer.</option>
+        <option conditionFlag="seenCloudBirds" goto="cat-cloud-birds">"Cloud birds," I would answer.</option>
+        <option goto="cat-riddle-no-answer">"I still don't know," I would answer.</option>
+      </dialog>
+      
+    </scene>
+    
+    <scene title="What the Cat Would Say If She Could Talk" name="cat-riddle-no-answer" background="cabinet_dark">
+      <sprite name="cat" />
+
+      <dialog goto="cabinet-cat-photo">
+        <body>
+          "Well," she would say, trying to conceal her disappointment, "go reflect on it and come back later, I suppose"
+        </body>
+      </dialog>
+    </scene>
+
+    <scene title="What the Cat Would Say If She Could Talk" name="cat-ask-about-hummingbird-hat" background="cabinet_dark">
+      <sprite name="cat" />
+
+      <dialog>
+        <body>
+          "What's that?" she would ask. "A hummingbird's hat? I don't know a thing about it."
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          "It's just that he said the hat had been taken by a kitten," I'd say.
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          The dismay on her face would be palpable. "A kitten?!" she would exclaim, "Do I look like a kitten to you? I am a lioness, a queen cougar, a sphinx!"
+        </body>
+      </dialog>
+      <dialog goto="cat-waiting-for-question">
+        <body>
+          "Still ..." she would collect herself, "I'm quite sure I know the kitten in question. A few blocks from my castle", by which she may mean my apartment, "a litter of kittens has recently been born. They are the most mischievous little things. One of them will surely have the hummingbird's hat."
+        </body>
+      </dialog>
+    </scene>
+
+    <scene title="What the Cat Would Say If She Could Talk" name="cat-cloud-birds" background="cabinet_dark">
+      <sprite name="cat" />
+      <setFlag name="catRevealedDishSoapLocation" value="1" />      
+      
+      <dialog>
+        <body>
+          Her pupils would dilate. "Cloud Birds!" she would exclaim. "What a fluffy, delicious notion. How could I say 'no' to Cloud Birds?!"
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          "Now," she would say with an air of confidentiality, "the location of your precious dish soap; which, I should take this opportunity to note, makes the water taste terrible. The dish soap is in the refrigerator."
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          "It ... really? The refrigerator?" I would be dumbfounded.
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          "I agree," she would nod gravely, "it is a ridiculous place to store the dish soap. I am of the school of thought which holds the refrigerator to be the sacred and inviolable domain of milk, cream, and wet cat food. You, it seems, are not."
+        </body>
+      </dialog>
+      <dialog goto="kitchen-remember-dish-soap">
+        <body>
+          I would shrug, scratch her behind the ear, and return to the task at hand.
+        </body>
       </dialog>
     </scene>
     
