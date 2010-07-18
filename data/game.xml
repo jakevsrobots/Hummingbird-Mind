@@ -22,11 +22,27 @@
     <asset name="in_refrigerator" file="backgrounds/in-refrigerator.png"
            type="image" />
 
+    <!-- backgrounds not yet actually created -->
+    <asset name="mail_hallway" file="backgrounds/mail-hallway.png"
+           type="image" />
+    <asset name="dog_on_floor" file="backgrounds/dog-on-floor.png"
+           type="image" />
+    <asset name="outside_apartment" file="backgrounds/outside-apartment.png"
+           type="image" />
+    <asset name="sky" file="backgrounds/sky.png"
+           type="image" />
+
     <!-- sprites -->
     <asset name="hummingbird_at_desk" file="sprites/hummingbird-at-desk.png"
            type="image" />
     <asset name="cat" file="sprites/cat.png"
            type="image" />
+
+    <!-- sprites not yet actually created -->
+    <asset name="chatting_birds" file="sprites/chatting-birds.png"
+           type="image" />
+    
+    
   </assets>
 
   <!-- ###############  SCENES  ############### -->
@@ -174,7 +190,7 @@
           Running hot water always relaxed me; even that summer day, when the apartment was at least 80 degrees. I was distractedly collecting dishes from the counters into the sink, when I realized I had forgotten something:
         </body>
         <option goto="kitchen-remember-dish-soap">The dish soap!</option>
-        <option>The mail!</option>
+        <option goto="check-mail">The mail!</option>
       </dialog>
     </scene>
 
@@ -416,5 +432,141 @@
       </dialog>
     </scene>
 
+    <!-- Checking the mail -->
+    <scene title="Checking the Mail" name="check-mail" background="mail_hallway">
+      <dialog>
+        <body>
+          I stepped out the apartment door and walked downstairs to the mailboxes, but there was no mail. Was it just too early or was there nothing in the mail for me today? I had no way of knowing.
+        </body>
+        <option goto="short-start-office">I went back to my office.</option>
+        <option goto="walk-dog">Since I was already up and about, I decided to walk the dog.</option>        
+      </dialog>
+    </scene>
+
+    <!-- Walking the dog -->
+    <scene title="Walking the Dog" name="walk-dog" background="dog_on_floor">
+      <dialog goto="outside-the-apartment">
+        <body>
+          Hattie the dog was laying on the floor, half-asleep with her tongue hanging out a bit. All it took to rouse her was pulling her leash off its hook and jingling my keys. We walked down the stairs together, and out into the afternoon sun.
+        </body>
+      </dialog>
+    </scene>
+    
+    <scene title="Just Outside the Apartment Building" name="outside-the-apartment" background="outside_apartment">
+      <dialog>
+        <body>
+          Hattie the dog quickly ran over to a patch of grass between the street and sidewalk to do her business. I looked up at the trees in front of the apartment building, grateful for the shade.
+        </body>
+        <option goto="dog-park">Hattie and I walked north, toward the park.</option>
+        <option goto="dog-school">Hattie and I walked east, toward the school.</option>        
+        <option goto="short-start-office">I called to Hattie and we went back into the apartment.</option>
+      </dialog>
+    </scene>
+
+    <scene title="The Park" name="dog-park" background="park">
+      <setFlag name="beenToPark" value="1" />
+      
+      <dialog>
+        <body>
+          Hattie and I walked up toward the park. She stopped a few times to smell or taste the ground, once to go after a stray chicken bone that I had to pull her away from.
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          When we reached the park, it was empty. The heat seemed to be getting to us both; Hattie's tongue lolled out the side of her mouth, flapping in the breeze like a pennant, while I wiped sweat from my forehead and neck.
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          I found a spot in the shade for us to sit in.
+        </body>
+        <option goto="park-sky">I lay down on the grass. Hattie lay at my side, chewing on a stick she'd found.</option>
+        <option goto="dog-park-stay-awake">I sat on the grass but kept awake using the mantra the hummingbird had taught me.</option>
+        <option goto="outside-the-apartment">I got back up and headed back toward the apartment with Hattie.</option>
+      </dialog>
+    </scene>
+
+    <scene title="The Park" name="wake-up-in-park" background="park">
+      <dialog>
+        <body>
+          The cloud bird's exclamation woke me with a start. Or had I heard something else; maybe Hattie barking at a passerby? She was standing next to me, looking protective and a bit upset. I shouldn't have fallen asleep like that, but it was hard not to in the summer sun.
+        </body>
+      </dialog>
+      <dialog goto="outside-the-apartment">
+        <body>
+          I got back up and headed back toward the apartment with Hattie.          
+        </body>
+      </dialog>
+    </scene>
+
+    <scene title="The Park" name="dog-park-stay-awake" background="park">
+      <dialog>
+        <body>
+          
+        </body>
+      </dialog>
+    </scene>      
+    
+    <!-- The sky -->
+    <scene title="Looking at the Sky" name="park-sky" background="sky">
+      <dialog>
+        <body>
+          The sky was mostly clear and blue that day, though a little cloud cover would have been a welcome relief. A few clouds drifted across at a leisurely pace.
+        </body>
+      </dialog>
+      <dialog goto="chatting-birds">
+        <body>
+          I watched the clouds and thought casually about the shapes they made: A cat's cloud paw, a cloud plate, a stocking cloud cap, a pair of chatting cloud birds.
+        </body>
+      </dialog>
+    </scene>
+
+    <!-- A pair of chatting cloud birds -->
+    <scene title="A Pair of Chatting Cloud Birds" name="chatting-birds" background="sky-dark">
+      <sprite name="chatting_birds" />
+      <setFlag name="seenCloudBirds" value="1" />
+      
+      <dialog>
+        <body>
+          An idle pair of cloud birds chatted away in the sky.
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          "Does the mail ever come?" asked the small cloud bird. "It seems that the mail never comes."
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          The large cloud bird cocked its head, "The mail comes ... but the mail must be delivered!"
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          "By whom is the mail delievered, when the mail comes?" asked the small bird, shifting its scrawny, vapory feet on its fragile cloud perch.
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          "When the mail comes," explained the large cloud bird, "the mail is delivered by the mail delivery man. But, sometimes, when the mail comes, the mail delivery man is delayed."
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          The small cloud bird blinked. "When the mail is delivered, and the mail delivery man is delayed, who delays the mail delivery man's delivery of the mail?"
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          The large cloud bird puffed its chest and spread its ethereal feathers. Its eyes widened, and it shuffled a bit, as if to prolong the suspense.
+        </body>
+      </dialog>
+      <dialog goto="wake-up-in-park">
+        <body>
+          "The dog!"
+        </body>
+      </dialog>
+    </scene>
+    
   </scenes>
 </game>
