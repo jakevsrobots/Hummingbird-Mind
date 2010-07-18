@@ -43,6 +43,7 @@
         </body>
         <option goto="office-asleep">I lay my head down on the desk and closed my eyes.</option>
         <option goto="kitchen">I got up and went to the kitchen to do some dishes.</option>
+        <option goto="check-mail">I got up and went to check the mail.</option>
       </dialog>
     </scene>
 
@@ -53,6 +54,7 @@
         </body>
         <option goto="office-asleep">I lay my head down on the desk and closed my eyes.</option>
         <option goto="kitchen">I got up and went to the kitchen to do some dishes.</option>
+        <option goto="kitchen">I got up and went to check the mail.</option>        
       </dialog>
     </scene>
 
@@ -155,16 +157,37 @@
 
     <!-- Kitchen sink -->
     <scene title="Kitchen Sink" name="kitchen" background="kitchen_sink">
-      <dialog>
-        <body>The counters were piled with dirty plates and silverware from a dinner party the weekend before. I started the hot water tap.</body>
+      <dialog conditionFlag="dishesDone">
+        <body>
+          The dishes were clean, propped up on the dish rack to dry.
+        </body>
+          <option goto="short-start-office">I went back into my office.</option>
+          <option goto="cabinet-above-blender">I looked at the cabinet above the blender.</option>        
       </dialog>
       <dialog>
-        <body>Running hot water always relaxed me; even that summer day, when the apartment was at least 80 degrees. I was distractedly collecting dishes from the counters into the sink, when I realized I had forgotten something:</body>
+        <body>
+          The counters were piled with dirty plates and silverware from a dinner party the weekend before. I started the hot water tap.
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          Running hot water always relaxed me; even that summer day, when the apartment was at least 80 degrees. I was distractedly collecting dishes from the counters into the sink, when I realized I had forgotten something:
+        </body>
         <option goto="kitchen-remember-dish-soap">The dish soap!</option>
         <option>The mail!</option>
       </dialog>
     </scene>
 
+    <scene title="Kitchen Sink" name="kitchen-sink-wash-dishes" background="kitchen_sink">
+      <setFlag name="dishesDone" value="1" />
+      
+      <dialog goto="kitchen">
+        <body>
+          I soaped, scrubbed and rinsed each dish, then left them on the rack to dry. By the time I'd finished, I was sweating in the afternoon heat but I felt relieved to have accomplished something.
+        </body>
+      </dialog>
+    </scene>
+    
     <scene title="Kitchen Sink" name="kitchen-remember-dish-soap" background="kitchen_sink">
       <dialog>
         <body>
@@ -176,13 +199,20 @@
         <option conditionFlag="catRevealedDishSoapLocation" goto="in-the-refrigerator">It might have been in the refrigerator.</option>
       </dialog>
     </scene>
-
-    <scene title="In the Refrigerator" name="in-the-refrigerator" background="in_refrigerator">
+    
+    <scene title="Kitchen Sink" name="kitchen-remember-mail" background="kitchen_sink">
       <dialog>
         <body>
-          The refrigerator seemed like an unlikely place for the dish soap.
+          I thought I should probably check if the mail had come yet, though I wasn't expecting anything specific.
         </body>
-        <option goto="kitchen-remember-dish-soap">So I kept looking elsewhere.</option>
+      </dialog>
+    </scene>
+
+    <scene title="In the Refrigerator" name="in-the-refrigerator" background="in_refrigerator">
+      <dialog goto="kitchen-sink-wash-dishes">
+        <body>
+          The refrigerator seemed like an unlikely place for the dish soap. But, of course, there it was.
+        </body>
       </dialog>
     </scene>
 
@@ -385,6 +415,6 @@
         </body>
       </dialog>
     </scene>
-    
+
   </scenes>
 </game>

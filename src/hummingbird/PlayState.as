@@ -65,6 +65,10 @@ package hummingbird {
                     
                     dialogObject['body'] = dialogNode.body.toString();
 
+                    if(dialogNode.@conditionFlag.toString()) {
+                        dialogObject['conditionFlag'] = dialogNode.@conditionFlag.toString();
+                    }
+                    
                     if(dialogNode.@goto.toString()) {
                         dialogObject['goto'] = dialogNode.@goto.toString()
                     }
