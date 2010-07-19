@@ -23,6 +23,7 @@
            type="image" />
 
     <!-- backgrounds not yet actually created -->
+    <!--
     <asset name="mail_hallway" file="backgrounds/mail-hallway.png"
            type="image" />
     <asset name="dog_on_floor" file="backgrounds/dog-on-floor.png"
@@ -31,7 +32,8 @@
            type="image" />
     <asset name="sky" file="backgrounds/sky.png"
            type="image" />
-
+    -->
+    
     <!-- sprites -->
     <asset name="hummingbird_at_desk" file="sprites/hummingbird-at-desk.png"
            type="image" />
@@ -39,8 +41,10 @@
            type="image" />
 
     <!-- sprites not yet actually created -->
+    <!--
     <asset name="chatting_birds" file="sprites/chatting-birds.png"
            type="image" />
+    -->
     
     
   </assets>
@@ -62,7 +66,7 @@
         <option goto="check-mail">I got up and went to check the mail.</option>
       </dialog>
     </scene>
-
+    
     <scene title="Home Office" name="short-start-office" background="office">
       <dialog>
         <body>
@@ -131,7 +135,6 @@
         </body>
         <option goto="office-bird-hat-unfamiliar">"Well, where do you think it could be?" I asked.</option>
         <option goto="office-bird-hat-magic-denial">"Don't be coy, I can handle it!" I insisted.</option>
-        <option goto="" conditionFlag="someSecretFlag">A secret third option here.</option>
       </dialog>
     </scene>
 

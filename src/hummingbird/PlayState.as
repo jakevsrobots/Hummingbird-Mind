@@ -70,7 +70,7 @@ package hummingbird {
                     }
                     
                     if(dialogNode.@goto.toString()) {
-                        dialogObject['goto'] = dialogNode.@goto.toString()
+                        dialogObject['goto'] = dialogNode.@goto.toString();
                     }
 
                     if(dialogNode.option.length()) {
@@ -224,9 +224,21 @@ package hummingbird {
         private function loadNextDialog():void {
             var sceneData:Object = gameData['scenes'][currentSceneName];
 
-            if(sceneData['dialogs'].length > dialogIndex) {
-                var dialogObject:Object = sceneData['dialogs'][dialogIndex];
+            var dialogObject:Object = null;
+            
+            while(dialogObject == null && dialogIndex < sceneData['dialogs'].length) {
+                dialogObject = sceneData['dialogs'][dialogIndex];
 
+                // Check flags and just silently skip over dialog objects
+                // that have flags for which the conditions are not met.
+                if(dialogObject.hasOwnProperty('conditionFlag')) {
+                    if(!getFlag(dialogObject['conditionFlag'])) {
+                        dialogObject = null;
+                        dialogIndex += 1;
+                        continue;
+                    }
+                }
+                
                 showDialog(dialogObject);
 
                 if(dialogObject.hasOwnProperty('options')) {
@@ -240,7 +252,7 @@ package hummingbird {
                     dialogCallback = function():void {
                         loadScene(dialogObject['goto']);
                     }
-                }
+                }                
             }
         }
 
