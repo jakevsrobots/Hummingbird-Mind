@@ -25,9 +25,17 @@ package hummingbird {
         private var dialogCallback:Function;
 
         private var gameFlags:Object;
+
+        private var suspendControl:Boolean = false;
+
+        private var muteButton:MuteButton;
         
         override public function create():void {
-            gameFlags = {};
+            if(Main.saveGame.data['flags']) {
+                gameFlags = Main.saveGame.data['flags'];
+            } else {
+                gameFlags = {};
+            }
             
             var gameDataXML:XML = new XML(new GameXMLFile());
 
@@ -134,19 +142,35 @@ package hummingbird {
                     FlxG.flash.stop();
                 });
 
-            currentBackgroundName = gameData['scenes'][gameData['startingScene']]['background'];
-            background.loadGraphic(Main.library.getAsset(currentBackgroundName));            
-            loadScene(gameData['startingScene']);
+            if(Main.saveGame.data['currentScene']) {
+                currentBackgroundName = gameData['scenes'][Main.saveGame.data['currentScene']]['background'];
+                background.loadGraphic(Main.library.getAsset(currentBackgroundName));
+                
+                loadScene(Main.saveGame.data['currentScene']);
+            } else {
+                currentBackgroundName = gameData['scenes'][gameData['startingScene']]['background'];
+                background.loadGraphic(Main.library.getAsset(currentBackgroundName));
+                
+                loadScene(gameData['startingScene']);
+            }
 
+            //muteButton = new MuteButton(FlxG.width - 16 - 2, 2);            
+            
             add(background);
             add(sprites);
             add(controls);
             add(gameCursor);
+            //add(muteButton);
             
             //FlxG.showBounds = true;
         }
 
         override public function update():void {
+            if(suspendControl) {
+                super.update();
+                return;
+            }
+            
             var mousePressHandled:Boolean = false;
 
             if(FlxG.mouse.justPressed() && !mousePressHandled) {
@@ -175,11 +199,32 @@ package hummingbird {
                     optionText.hoverOff();
                 }
             }
+
+            if(FlxG.keys.justPressed("ESCAPE")) {
+                FlxG.pause = !FlxG.pause;
+            }
+            
+            if(FlxG.keys.justPressed("Q")) {
+                FlxG.fade.start(0xff000000, 1.0, function():void {
+                        FlxG.fade.stop();
+                        FlxG.state = new MenuState();
+                    });
+                suspendControl = true;                
+            }
             
             super.update();
         }
 
         private function loadScene(sceneName:String):void {
+            if(sceneName == 'endgame') {
+                FlxG.fade.start(0xff000000, 1.0, function():void {
+                        FlxG.fade.stop();
+                        FlxG.state = new EndGameState;
+                    });
+                suspendControl = true;
+                return;
+            }
+            
             var sceneData:Object = gameData['scenes'][sceneName];
 
             if(sceneData == null) {
@@ -187,6 +232,9 @@ package hummingbird {
             }
             
             currentSceneName = sceneName;
+
+            Main.save(gameFlags, currentSceneName);
+            
             if(sceneData['background'] != currentBackgroundName) {
                 currentBackgroundName = sceneData['background'];
                 
@@ -306,6 +354,20 @@ package hummingbird {
         }
 
         private function getFlag(flagName:String):Boolean {
+            // Use '+' to check many flags at once. Returns 'true' only if *all* flags
+            // are true.
+            if(flagName.indexOf('+') != -1) {
+                var subFlagNameList:Array = flagName.split('+');
+                
+                for each(var subFlagName:String in subFlagNameList) {
+                    if(!getFlag(subFlagName)) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+            
             if(gameFlags.hasOwnProperty(flagName) && gameFlags[flagName]) {
                 return true;
             } else {

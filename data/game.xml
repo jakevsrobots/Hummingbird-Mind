@@ -5,6 +5,12 @@
            type="image" />
     <asset name="menuBackground" file="menu-background.png"
            type="image" />
+    <asset name="endgameBackground" file="endgame-background.png"
+           type="image" />
+    <asset name="mutedIcon" file="muted-icon.png"
+           type="image" />
+    <asset name="unmutedIcon" file="unmuted-icon.png"
+           type="image" />
     
     <!-- backgrounds -->
     <asset name="office" file="backgrounds/office.png"
@@ -21,30 +27,43 @@
            type="image" />
     <asset name="in_refrigerator" file="backgrounds/in-refrigerator.png"
            type="image" />
-
-    <!-- backgrounds not yet actually created -->
-    <!--
-    <asset name="mail_hallway" file="backgrounds/mail-hallway.png"
+    <asset name="mailboxes" file="backgrounds/mailboxes.png"
            type="image" />
-    <asset name="dog_on_floor" file="backgrounds/dog-on-floor.png"
+    <asset name="dog_asleep" file="backgrounds/dog-asleep.png"
            type="image" />
     <asset name="outside_apartment" file="backgrounds/outside-apartment.png"
            type="image" />
-    <asset name="sky" file="backgrounds/sky.png"
+    <asset name="park_sky" file="backgrounds/park-sky.png"
            type="image" />
-    -->
+    <asset name="park" file="backgrounds/park.png"
+           type="image" />
+    <asset name="park_sky_dark" file="backgrounds/park-sky-dark.png"
+           type="image" />
+    <asset name="back_to_work" file="backgrounds/back-to-work.png"
+           type="image" />
+
+    <!-- backgrounds not yet actually created -->
+    
+    <asset name="outside_school" file="backgrounds/outside-school.png"
+           type="image" />
+    <asset name="playground" file="backgrounds/playground.png"
+           type="image" />
+    <asset name="playground_swingset" file="backgrounds/swingset.png"
+           type="image" />
     
     <!-- sprites -->
     <asset name="hummingbird_at_desk" file="sprites/hummingbird-at-desk.png"
            type="image" />
     <asset name="cat" file="sprites/cat.png"
            type="image" />
-
-    <!-- sprites not yet actually created -->
-    <!--
     <asset name="chatting_birds" file="sprites/chatting-birds.png"
            type="image" />
-    -->
+    <asset name="mail_carrier" file="sprites/mail-carrier.png"
+           type="image" />
+
+    <!-- sprites not yet actually created -->
+    <asset name="kitten" file="sprites/kitten.png"
+           type="image" />
     
     
   </assets>
@@ -64,6 +83,7 @@
         <option goto="office-asleep">I lay my head down on the desk and closed my eyes.</option>
         <option goto="kitchen">I got up and went to the kitchen to do some dishes.</option>
         <option goto="check-mail">I got up and went to check the mail.</option>
+        <option conditionFlag="hatReturnedToHummingbird+dishesDone+mailCollected" goto="back-to-work">I decided to get back to work.</option>
       </dialog>
     </scene>
     
@@ -74,7 +94,8 @@
         </body>
         <option goto="office-asleep">I lay my head down on the desk and closed my eyes.</option>
         <option goto="kitchen">I got up and went to the kitchen to do some dishes.</option>
-        <option goto="kitchen">I got up and went to check the mail.</option>        
+        <option goto="check-mail">I got up and went to check the mail.</option>
+        <option conditionFlag="hatReturnedToHummingbird+dishesDone+mailCollected" goto="back-to-work">I decided to get back to work.</option>
       </dialog>
     </scene>
 
@@ -82,6 +103,11 @@
       <dialog>
         <body>
           I could hear the air conditioner droning in the next room. Traffic rumbled from the overpass a few blocks away.
+        </body>
+      </dialog>
+      <dialog conditionFlag="learnedHummingbirdMantra" goto="office-bird-wake-up-mantra">
+        <body>
+          And, suddenly, a voice...?
         </body>
       </dialog>
       <dialog goto="office-bird-appears">
@@ -101,6 +127,7 @@
         </body>
         <option goto="office-bird-hat-response">I was so stunned that I responded immediately.</option>
         <option goto="office-bird-hat-unfamiliar">I was so stunned that I couldn't speak.</option>
+        <option conditionFlag="hatRetrievedFromKitten" goto="office-bird-return-hat">"Actually, I have it right here," I said.</option>
       </dialog>
     </scene>
     
@@ -114,10 +141,11 @@
       </dialog>
       <dialog>
         <body>
-          "Well, it's black," said the hummingbird, "Soft, sort of a long stocking cap. It's easy to wash, looks clever, and has magic properties. Ring any bells?"
+          "Well, it's black," said the hummingbird, "it has a long, stiff brim. It's easy to wash, looks clever, and has magic properties. Ring any bells?"
         </body>
         <option goto="office-bird-hat-magic-properties">Magic properties? I had to know more.</option>
         <option goto="office-bird-hat-unfamiliar">Magic properties? All I had to offer was a blank stare.</option>
+        <option conditionFlag="hatRetrievedFromKitten" goto="office-bird-return-hat">"Actually, I have it right here," I said.</option>        
       </dialog>
     </scene>
 
@@ -164,13 +192,38 @@
       </dialog>
     </scene>
 
+    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-return-hat" background="office_dark">
+      <sprite name="hummingbird_at_desk" />
+      <setFlag name="hatReturnedToHummingbird" value="1" />
+      <setFlag name="learnedHummingbirdMantra" value="1" />      
+
+      <dialog>
+        <body>"Fantastic!" cried the hummingbird. "It is a nice hat, my favorite. And, of course, its magic properties are often helpful. I suppose I can explain the magic to you now.</body>
+      </dialog>
+
+      <dialog goto="office-bird-wake-up-mantra">
+         <body>"This hat taught me a powerful mantra that allows me to keep anyone awake! I'll demonstrate it to you now:"</body>
+      </dialog>
+    </scene>
+
+    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-wake-up-mantra" background="office_dark">
+      <sprite name="hummingbird_at_desk" />
+      
+      <dialog goto="office-wake-up">
+        <body>"Awa, awa, awa!" The hummingbird intoned its wakefulness mantra.</body>
+      </dialog>
+    </scene>    
+    
     <!-- Waking up in office -->
     <scene title="Home Office" name="office-wake-up" background="office">
+      <dialog conditionFlag="learnedHummingbirdMantra" goto="short-start-office">
+        <body>The hummingbird's words startled me awake. I lifted my head and wiped a bit of drool off my desk with the end of my sleeve; how embarassing.</body>
+      </dialog>
       <dialog>
         <body>The hummingbird's words startled me awake. I lifted my head and wiped a bit of drool off my desk with the end of my sleeve; how embarassing.</body>
       </dialog>
       <dialog goto="short-start-office">
-        <body>The dream faded quickly, but I was left with the vestiges of an image: a kitten wearing a stocking cap. A cat in a hat?</body>
+        <body>The dream faded quickly, but I was left with the vestiges of an image: a kitten wearing a baseball cap. A cat in a hat?</body>
       </dialog>
     </scene>
 
@@ -181,7 +234,7 @@
           The dishes were clean, propped up on the dish rack to dry.
         </body>
           <option goto="short-start-office">I went back into my office.</option>
-          <option goto="cabinet-above-blender">I looked at the cabinet above the blender.</option>        
+          <option goto="cabinet-above-blender-dishes-done">I looked at the cabinet above the blender.</option>        
       </dialog>
       <dialog>
         <body>
@@ -242,6 +295,16 @@
         </body>
         <option goto="cabinet-cat-photo">But I saw a photo of my cat, Eloise, hung on the door.</option>
         <option goto="kitchen-remember-dish-soap">So I kept looking elsewhere.</option>
+      </dialog>
+    </scene>
+
+    <scene title="The Cabinet Above the Blender" name="cabinet-above-blender-dishes-done" background="cabinet_above_blender">
+      <dialog>
+        <body>
+          Olive oil, vinegar, chili powder, and fruit snacks.
+        </body>
+        <option goto="cabinet-cat-photo">I looked at a photo of my cat, Eloise, hung on the door.</option>
+        <option goto="kitchen">I went back to the sink.</option>
       </dialog>
     </scene>
 
@@ -362,7 +425,7 @@
         <body>
           "Here is your riddle," she would say. "What kind of bird lives in the park by your house?"
         </body>
-        <option conditionFlag="beenToPark" goto="cat-no-birds">"There are no birds in the park," I would answer.</option>
+        <option conditionFlag="beenToPark" goto="cat-riddle-no-answer">"There are no birds in the park," I would answer.</option>
         <option conditionFlag="seenCloudBirds" goto="cat-cloud-birds">"Cloud birds," I would answer.</option>
         <option goto="cat-riddle-no-answer">"I still don't know," I would answer.</option>
       </dialog>
@@ -394,12 +457,12 @@
       </dialog>
       <dialog>
         <body>
-          The dismay on her face would be palpable. "A kitten?!" she would exclaim, "Do I look like a kitten to you? I am a lioness, a queen cougar, a sphinx!"
+          She would wrinkle her nose in dismay. "A kitten?!" she would exclaim, "Do I look like a kitten to you? I am a lioness, a queen cougar, a sphinx!"
         </body>
       </dialog>
       <dialog goto="cat-waiting-for-question">
         <body>
-          "Still ..." she would collect herself, "I'm quite sure I know the kitten in question. A few blocks from my castle", by which she may mean my apartment, "a litter of kittens has recently been born. They are the most mischievous little things. One of them will surely have the hummingbird's hat."
+          "Still ..." she would collect herself, "I'm quite sure I know the kitten in question. At the school a few blocks from my castle," by which she may mean my apartment, "a litter of kittens has recently been born. They are the most mischievous little things. One of them will surely have the hummingbird's hat."
         </body>
       </dialog>
     </scene>
@@ -436,21 +499,45 @@
     </scene>
 
     <!-- Checking the mail -->
-    <scene title="Checking the Mail" name="check-mail" background="mail_hallway">
+    <scene title="Checking the Mail" name="check-mail" background="mailboxes">
+      <dialog conditionFlag="mailCollected">
+        <body>
+          I stepped out the apartment door and walked downstairs to the mailboxes, and suddenly rememberd I had already collected the mail.
+        </body>
+        <option goto="short-start-office">I went back to my office.</option>
+        <option goto="walk-dog">Since I was already up &amp; about, I thought I'd walk the dog.</option>        
+      </dialog>
+      <dialog conditionFlag="mailDelivered" goto="collect-mail">
+        <body>
+          I stepped out the apartment door and walked downstairs to the mailboxes. I could see the corner of a yellow envelope sticking out the edge of my mailbox.
+        </body>
+      </dialog>
       <dialog>
         <body>
           I stepped out the apartment door and walked downstairs to the mailboxes, but there was no mail. Was it just too early or was there nothing in the mail for me today? I had no way of knowing.
         </body>
         <option goto="short-start-office">I went back to my office.</option>
-        <option goto="walk-dog">Since I was already up and about, I decided to walk the dog.</option>        
+        <option goto="walk-dog">Since I was already up &amp; about, I thought I'd walk the dog.</option>        
       </dialog>
     </scene>
 
+    <scene title="Checking the Mail" name="collect-mail" background="mailboxes">
+      <setFlag flagName="mailCollected" value="1" />
+      
+      <dialog>
+        <body>
+          I unlocked the mailbox and retrieved the yellow envelope. It was just my phone bill, how dull. But at least I wouldn't be distracted waiting for something exciting to be delivered, until the next day.
+        </body>
+        <option goto="short-start-office">I went back to my office.</option>
+        <option goto="walk-dog">Since I was already up &amp; about, I thought I'd walk the dog.</option>        
+      </dialog>
+    </scene>
+    
     <!-- Walking the dog -->
-    <scene title="Walking the Dog" name="walk-dog" background="dog_on_floor">
+    <scene title="Walking the Dog" name="walk-dog" background="dog_asleep">
       <dialog goto="outside-the-apartment">
         <body>
-          Hattie the dog was laying on the floor, half-asleep with her tongue hanging out a bit. All it took to rouse her was pulling her leash off its hook and jingling my keys. We walked down the stairs together, and out into the afternoon sun.
+          Hattie the dog was laying on the couch, half-asleep with her tongue hanging out a bit. All it took to rouse her was pulling her leash off its hook and jingling my keys. We walked down the stairs together, and out into the afternoon sun.
         </body>
       </dialog>
     </scene>
@@ -483,12 +570,23 @@
         <body>
           I found a spot in the shade for us to sit in.
         </body>
-        <option goto="park-sky">I lay down on the grass. Hattie lay at my side, chewing on a stick she'd found.</option>
-        <option goto="dog-park-stay-awake">I sat on the grass but kept awake using the mantra the hummingbird had taught me.</option>
-        <option goto="outside-the-apartment">I got back up and headed back toward the apartment with Hattie.</option>
+        <option goto="park-sky">I lay on the grass, Hattie at my side chewing on a stick.</option>
+        <option conditionFlag="learnedHummingbirdMantra" goto="dog-park-stay-awake">I sat, but kept awake using the hummingbird's mantra.</option>
+        <option goto="outside-the-apartment">I got back up and headed back with Hattie.</option>
       </dialog>
     </scene>
 
+    <scene title="The Park" name="dog-park-sitting" background="park">    
+      <dialog>
+        <body>
+          Hattie and I sat in the shade.
+        </body>
+        <option goto="park-sky">I lay on the grass, Hattie at my side chewing on a stick.</option>
+        <option goto="dog-park-stay-awake">I sat, but kept awake using the hummingbird's mantra.</option>
+        <option goto="outside-the-apartment">I got back up and headed back with Hattie.</option>
+      </dialog>
+  </scene>
+    
     <scene title="The Park" name="wake-up-in-park" background="park">
       <dialog>
         <body>
@@ -503,15 +601,36 @@
     </scene>
 
     <scene title="The Park" name="dog-park-stay-awake" background="park">
-      <dialog>
+      <dialog conditionFlag="mailDelivered" goto="dog-park-sitting">
         <body>
-          
+          I sat with my back against the tree and recited the hummingbird's mantra, "awa awa awa." I felt a little sleepy, but I was at least able to keep my eyes open. The mail carrier had already passed, so there was no one for Hattie to bark at.
+        </body>
+      </dialog>
+      <dialog goto="dog-park-mailcarrier-walks-by">
+        <body>
+          I sat with my back against the tree and recited the hummingbird's mantra, "awa awa awa." I felt a little sleepy, but I was at least able to keep my eyes open.
         </body>
       </dialog>
     </scene>      
+
+    <scene title="The Park" name="dog-park-mailcarrier-walks-by" background="park">
+      <setFlag name="mailDelivered" value="1" />
+      <sprite name="mail_carrier" />
+
+      <dialog>
+        <body>
+          A mail carrier walked by, taking a shortcut through the park. Hattie started to growl at the mail carrier, and I could tell she was about to start barking and maybe scare the poor woman off.
+        </body>
+      </dialog>
+      <dialog goto="dog-park-sitting">
+        <body>
+          If I'd been asleep, Hattie would have probably scared the mail carrier away. But I tightened her leash and scratched her behind the ears until she calmed down. The mail carrier continued through the park in the direction of my apartment.
+        </body>
+      </dialog>
+    </scene>
     
     <!-- The sky -->
-    <scene title="Looking at the Sky" name="park-sky" background="sky">
+    <scene title="Looking at the Sky" name="park-sky" background="park_sky">
       <dialog>
         <body>
           The sky was mostly clear and blue that day, though a little cloud cover would have been a welcome relief. A few clouds drifted across at a leisurely pace.
@@ -519,13 +638,13 @@
       </dialog>
       <dialog goto="chatting-birds">
         <body>
-          I watched the clouds and thought casually about the shapes they made: A cat's cloud paw, a cloud plate, a stocking cloud cap, a pair of chatting cloud birds.
+          I watched the clouds and thought casually about the shapes they made: A cat's cloud paw, a cloud plate, a cloud baseball cap, a pair of chatting cloud birds.
         </body>
       </dialog>
     </scene>
 
     <!-- A pair of chatting cloud birds -->
-    <scene title="A Pair of Chatting Cloud Birds" name="chatting-birds" background="sky-dark">
+    <scene title="A Pair of Chatting Cloud Birds" name="chatting-birds" background="park_sky_dark">
       <sprite name="chatting_birds" />
       <setFlag name="seenCloudBirds" value="1" />
       
@@ -536,37 +655,142 @@
       </dialog>
       <dialog>
         <body>
-          "Does the mail ever come?" asked the small cloud bird. "It seems that the mail never comes."
+          "Does the mail ever come?" asked the young cloud bird. "It seems that the mail never comes."
         </body>
       </dialog>
       <dialog>
         <body>
-          The large cloud bird cocked its head, "The mail comes ... but the mail must be delivered!"
+          The old cloud bird cocked its head, "The mail comes ... but the mail must be delivered!"
         </body>
       </dialog>
       <dialog>
         <body>
-          "By whom is the mail delievered, when the mail comes?" asked the small bird, shifting its scrawny, vapory feet on its fragile cloud perch.
+          "By whom is the mail delivered, when the mail comes?" asked the young bird, shifting its scrawny, vapory feet on its fragile cloud perch.
         </body>
       </dialog>
       <dialog>
         <body>
-          "When the mail comes," explained the large cloud bird, "the mail is delivered by the mail delivery man. But, sometimes, when the mail comes, the mail delivery man is delayed."
+          "When the mail comes," explained the old cloud bird, "the mail is delivered by the mail delivery person. But, sometimes, when the mail comes, the mail delivery person is delayed."
         </body>
       </dialog>
       <dialog>
         <body>
-          The small cloud bird blinked. "When the mail is delivered, and the mail delivery man is delayed, who delays the mail delivery man's delivery of the mail?"
+          The young cloud bird blinked. "When the mail is delivered, and the mail delivery person is delayed, who delays the mail delivery person's delivery of the mail?"
         </body>
       </dialog>
       <dialog>
         <body>
-          The large cloud bird puffed its chest and spread its ethereal feathers. Its eyes widened, and it shuffled a bit, as if to prolong the suspense.
+          The old cloud bird puffed its chest and spread its ethereal feathers. Its eyes widened, and it shuffled a bit, as if to prolong the suspense.
         </body>
       </dialog>
       <dialog goto="wake-up-in-park">
         <body>
           "The dog!"
+        </body>
+      </dialog>
+    </scene>
+
+    <!-- The school/kitten -->
+    <scene title="Outside the School" name="dog-school" background="outside_school">
+      <dialog>
+        <body>
+          Hattie and I stood outside the elementary school down the street from the apartment. It was late afternoon so the children had already gone home for the day, except for those unlucky enough to be held after school in detention.
+        </body>
+        <option goto="dog-playground">Hattie and I walked through the playground.</option>
+        <option goto="outside-the-apartment">Hattie and I walked back to the apartment.</option>        
+      </dialog>
+    </scene>
+
+    <scene title="The Playground" name="dog-playground" background="playground">
+      <dialog conditionFlag="encounteredKitten" goto="kitten">
+        <body>
+          As Hattie and I walked through the playground and over to the kitten by the swing set.
+        </body>
+      </dialog>
+      <dialog goto="kitten">
+        <body>
+          As Hattie and I walked through the playground, I heard a soft cry come from the swing set. I pulled Hattie's leash a bit tighter and walked slowly toward the swing set, not wanting to surprise whoever had made the sound.
+        </body>
+      </dialog>
+    </scene>
+    
+    <scene title="A Kitten in the Playground" name="kitten" background="playground_swingset">
+      <sprite name="kitten" />
+      <setFlag name="encounteredKitten" value="1" />
+      
+      <dialog conditionFlag="hatRetrievedFromKitten" goto="dog-school">
+        <body>
+          The kitten smugly admired my library card.
+        </body>
+      </dialog>
+      
+      <dialog>
+        <body>
+          A small kitten was hiding behind the post of the swing set, curled up in a black baseball cap. Its eyes widened and it looked up at me as if to say, "may I have your wallet?"
+        </body>
+        <option goto="kitten-refuse-wallet">I patted its head to say, "no, you may not have my wallet."</option>
+        <option conditionFlag="hummingbirdMentionedKitten" goto="kitten-request-hat">I patted its head as if to say, "may I have your hat?"</option>
+      </dialog>
+    </scene>
+
+    <scene title="A Kitten in the Playground" name="kitten-refuse-wallet" background="playground_swingset">
+      <sprite name="kitten" />
+
+      <dialog goto="dog-school">
+        <body>
+          The kitten stretched and its jaw distorted into a yawn that could have meant, "then we have nothing to discuss." It closed its eyes and went to sleep.
+        </body>
+      </dialog>
+    </scene>
+    
+    <scene title="A Kitten in the Playground" name="kitten-request-hat" background="playground_swingset">
+      <sprite name="kitten" />
+
+      <dialog>
+        <body>
+          The kitten's eyes narrowed, as if to say, "this is the most comfortable hat I have ever acquired. I could not possibly let it go for less than the contents of your wallet."
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          I tilted my head, which might have meant, "what could you want my wallet for?"
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          The kitten stretched and rolled on its back. If I were an expert on cat body language, I might have taken this to mean, "If I were to give up this hat, I would have nowhere to sleep. I need your library card, so I can sleep on the shelves of the reference section."
+        </body>
+      </dialog>
+      <dialog>
+        <body>
+          I had the strange feeling that I was being manipulated.
+        </body>
+        <option goto="kitten-trade-for-hat">But I set my library card next to the kitten.</option>
+        <option goto="dog-school">So I gave Hattie's leash a tug and left the kitten.</option>        
+      </dialog>
+    </scene>
+
+    <scene title="A Kitten in the Playground" name="kitten-trade-for-hat" background="playground_swingset">
+      <sprite name="kitten" />
+      <setFlag name="hatRetrievedFromKitten" value="1" />
+      
+      <dialog>
+        <body>
+          I felt like the kitten might be scamming me, but it seemed important to retrieve that hat, so I gave it my library card. The kitten rolled out of the hat and took the library card between its tiny jaws.
+        </body>
+      </dialog>
+      <dialog goto="dog-school">
+        <body>
+          I just hoped I wouldn't end up with too many library fines.
+        </body>
+      </dialog>
+    </scene>
+
+    <!-- Back to work -->
+    <scene title="Back to Work" name="back-to-work" background="back_to_work">
+      <dialog goto="endgame">
+        <body>
+          With all these distractions addressed and resolved, my mind finally started to settle and focus. I opened my text editor and graphics program, and set to work.
         </body>
       </dialog>
     </scene>

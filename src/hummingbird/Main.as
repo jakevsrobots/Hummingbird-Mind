@@ -1,6 +1,8 @@
 package hummingbird {
     import org.flixel.*;
     import AssetLibrary;
+
+    import flash.net.SharedObject;
     
     [SWF(width="600", height="400", backgroundColor="#000000")];
 
@@ -15,16 +17,38 @@ package hummingbird {
         public static var ZeroFourFontClass:String;
 
         public static var gameFont:String;
+
+        public static var saveGame:SharedObject;
         
         public function Main():void {
             gameFont = 'zerofourbee';
             
             Main.library = new AssetLibrary();
             Main.instance = this;
+
+            saveGame = SharedObject.getLocal('hummingbirdMind_savedata');
+            if(saveGame.data['flags'] == null || saveGame.data['currentScene'] == null) {
+                Main.clearSave();
+            }
             
             super(300, 200, MenuState, 2);
-            //super(300, 200, PlayState, 2);
             FlxState.bgColor = Main.bgcolor;
+
+            pause = new GamePause();
+        }
+
+        public static function save(flags:Object, currentScene:String):void {
+            saveGame.data['flags'] = flags;
+            saveGame.data['currentScene'] = currentScene;
+            
+            saveGame.flush();
+        }
+
+        public static function clearSave():void {
+            saveGame.data['flags'] = {};
+            saveGame.data['currentScene'] = null;
+
+            saveGame.flush();
         }
     }
 }
