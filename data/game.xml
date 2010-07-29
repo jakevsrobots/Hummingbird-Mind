@@ -7,10 +7,30 @@
            type="image" />
     <asset name="endgameBackground" file="endgame-background.png"
            type="image" />
+    <asset name="creditsBackground" file="credits-background.png"
+           type="image" />
     <asset name="mutedIcon" file="muted-icon.png"
            type="image" />
     <asset name="unmutedIcon" file="unmuted-icon.png"
            type="image" />
+    <asset name="lentEtTriste" file="music/lent-et-triste.mp3"
+           type="mp3" />
+    <asset name="hover" file="sound/hover.mp3"
+           type="mp3" />
+    <asset name="choose" file="sound/choose.mp3"
+           type="mp3" />
+
+    <!-- soundscapes -->
+    <asset name="kitchenSound" file="sound/kitchen-soundscape.mp3"
+           type="mp3" />
+    <asset name="officeSound" file="sound/office-soundscape.mp3"
+           type="mp3" />
+    <asset name="outsideSound" file="sound/outside-soundscape.mp3"
+           type="mp3" />
+    <asset name="playgroundSound" file="sound/playground-soundscape.mp3"
+           type="mp3" />
+
+    
     
     <!-- backgrounds -->
     <asset name="office" file="backgrounds/office.png"
@@ -72,7 +92,7 @@
   
   <!-- Starting office -->
   <scenes firstScene="office">
-    <scene title="Home Office" name="office" background="office">
+    <scene title="Home Office" name="office" background="office" soundscape="officeSound">
       <dialog>
         <body>My "home office." It was really just a desk in a corner of the living room, but it was enough space for my computer and drawer of important-papers-that-I-pretend-do-not-exist.</body>
       </dialog>
@@ -87,7 +107,7 @@
       </dialog>
     </scene>
     
-    <scene title="Home Office" name="short-start-office" background="office">
+    <scene title="Home Office" name="short-start-office" background="office" soundscape="officeSound">
       <dialog>
         <body>
           I sat at my desk, unable to concentrate. My eyelids felt like lead, and I kept finding excuses to distract myself.
@@ -99,7 +119,7 @@
       </dialog>
     </scene>
 
-    <scene title="Home Office" name="office-asleep" background="office_dark">
+    <scene title="Home Office" name="office-asleep" background="office_dark" soundscape="officeSound">
       <dialog>
         <body>
           I could hear the air conditioner droning in the next room. Traffic rumbled from the overpass a few blocks away.
@@ -118,7 +138,7 @@
     </scene>
 
     <!-- Bird visitor -->
-    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-appears" background="office_dark">
+    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-appears" background="office_dark" soundscape="officeSound">
       <sprite name="hummingbird_at_desk" />
       
       <dialog>
@@ -131,7 +151,7 @@
       </dialog>
     </scene>
     
-    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-hat-response" background="office_dark">
+    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-hat-response" background="office_dark" soundscape="officeSound">
       <sprite name="hummingbird_at_desk" />
       
       <dialog>
@@ -149,7 +169,7 @@
       </dialog>
     </scene>
 
-    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-hat-magic-properties" background="office_dark">
+    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-hat-magic-properties" background="office_dark" soundscape="officeSound">
       <sprite name="hummingbird_at_desk" />
 
       <dialog>
@@ -166,7 +186,7 @@
       </dialog>
     </scene>
 
-    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-hat-magic-denial" background="office_dark">
+    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-hat-magic-denial" background="office_dark" soundscape="officeSound">
       <sprite name="hummingbird_at_desk" />
 
       <dialog goto="office-bird-hat-unfamiliar">
@@ -176,7 +196,7 @@
       </dialog>
     </scene>
     
-    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-hat-unfamiliar" background="office_dark">
+    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-hat-unfamiliar" background="office_dark" soundscape="officeSound">
       <sprite name="hummingbird_at_desk" />
       <setFlag name="hummingbirdMentionedKitten" value="1" />
       
@@ -192,7 +212,7 @@
       </dialog>
     </scene>
 
-    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-return-hat" background="office_dark">
+    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-return-hat" background="office_dark" soundscape="officeSound">
       <sprite name="hummingbird_at_desk" />
       <setFlag name="hatReturnedToHummingbird" value="1" />
       <setFlag name="learnedHummingbirdMantra" value="1" />      
@@ -206,7 +226,7 @@
       </dialog>
     </scene>
 
-    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-wake-up-mantra" background="office_dark">
+    <scene title="A Hummingbird Hovering at the Desk" name="office-bird-wake-up-mantra" background="office_dark" soundscape="officeSound">
       <sprite name="hummingbird_at_desk" />
       
       <dialog goto="office-wake-up">
@@ -215,7 +235,7 @@
     </scene>    
     
     <!-- Waking up in office -->
-    <scene title="Home Office" name="office-wake-up" background="office">
+    <scene title="Home Office" name="office-wake-up" background="office" soundscape="officeSound">
       <dialog conditionFlag="learnedHummingbirdMantra" goto="short-start-office">
         <body>The hummingbird's words startled me awake. I lifted my head and wiped a bit of drool off my desk with the end of my sleeve; how embarassing.</body>
       </dialog>
@@ -228,7 +248,7 @@
     </scene>
 
     <!-- Kitchen sink -->
-    <scene title="Kitchen Sink" name="kitchen" background="kitchen_sink">
+    <scene title="Kitchen Sink" name="kitchen" background="kitchen_sink" soundscape="kitchenSound">
       <dialog conditionFlag="dishesDone">
         <body>
           The dishes were clean, propped up on the dish rack to dry.
@@ -250,7 +270,7 @@
       </dialog>
     </scene>
 
-    <scene title="Kitchen Sink" name="kitchen-sink-wash-dishes" background="kitchen_sink">
+    <scene title="Kitchen Sink" name="kitchen-sink-wash-dishes" background="kitchen_sink" soundscape="kitchenSound">
       <setFlag name="dishesDone" value="1" />
       
       <dialog goto="kitchen">
@@ -260,7 +280,14 @@
       </dialog>
     </scene>
     
-    <scene title="Kitchen Sink" name="kitchen-remember-dish-soap" background="kitchen_sink">
+    <scene title="Kitchen Sink" name="kitchen-remember-dish-soap" background="kitchen_sink" soundscape="kitchenSound">
+      <dialog conditionFlag="dishesDone">
+        <body>
+          The dishes were clean, propped up on the dish rack to dry.
+        </body>
+          <option goto="short-start-office">I went back into my office.</option>
+          <option goto="cabinet-above-blender-dishes-done">I looked at the cabinet above the blender.</option>        
+      </dialog>
       <dialog>
         <body>
           I didn't know where the dish soap was; I often stashed it somewhere creative and then forgot.
@@ -272,7 +299,7 @@
       </dialog>
     </scene>
     
-    <scene title="Kitchen Sink" name="kitchen-remember-mail" background="kitchen_sink">
+    <scene title="Kitchen Sink" name="kitchen-remember-mail" background="kitchen_sink" soundscape="kitchenSound">
       <dialog>
         <body>
           I thought I should probably check if the mail had come yet, though I wasn't expecting anything specific.
@@ -280,7 +307,7 @@
       </dialog>
     </scene>
 
-    <scene title="In the Refrigerator" name="in-the-refrigerator" background="in_refrigerator">
+    <scene title="In the Refrigerator" name="in-the-refrigerator" background="in_refrigerator" soundscape="kitchenSound">
       <dialog goto="kitchen-sink-wash-dishes">
         <body>
           The refrigerator seemed like an unlikely place for the dish soap. But, of course, there it was.
@@ -288,7 +315,7 @@
       </dialog>
     </scene>
 
-    <scene title="The Cabinet Above the Blender" name="cabinet-above-blender" background="cabinet_above_blender">
+    <scene title="The Cabinet Above the Blender" name="cabinet-above-blender" background="cabinet_above_blender" soundscape="kitchenSound">
       <dialog>
         <body>
           Olive oil, vinegar, chili powder, and fruit snacks. It didn't look like the dish soap was in the cabinet.
@@ -298,7 +325,7 @@
       </dialog>
     </scene>
 
-    <scene title="The Cabinet Above the Blender" name="cabinet-above-blender-dishes-done" background="cabinet_above_blender">
+    <scene title="The Cabinet Above the Blender" name="cabinet-above-blender-dishes-done" background="cabinet_above_blender" soundscape="kitchenSound">
       <dialog>
         <body>
           Olive oil, vinegar, chili powder, and fruit snacks.
@@ -308,7 +335,7 @@
       </dialog>
     </scene>
 
-    <scene title="The Cabinet Above the Blender" name="cabinet-cat-photo" background="cabinet_above_blender">
+    <scene title="The Cabinet Above the Blender" name="cabinet-cat-photo" background="cabinet_above_blender" soundscape="kitchenSound">
       <dialog>
         <body>
           Hung up on the cabinet door was a photo of my cat, Eloise, with a wild-eyed and dangerous expression. Just some frozen moment captured mid-thrash. It was impossible to know what she might have been thinking or feeling in that moment; was she playing or fighting?
@@ -318,7 +345,7 @@
       </dialog>
     </scene>
     
-    <scene title="Under the Sink" name="under-the-sink" background="under_the_sink">
+    <scene title="Under the Sink" name="under-the-sink" background="under_the_sink" soundscape="kitchenSound">
       <dialog>
         <body>
           When I looked under the sink, I only found a few brilo pads.
@@ -328,7 +355,7 @@
     </scene>
 
     <!-- Wondering about the cat's thoughts -->
-    <scene title="What the Cat Would Say If She Could Talk" name="what-the-cat-would-say" background="cabinet_dark">
+    <scene title="What the Cat Would Say If She Could Talk" name="what-the-cat-would-say" background="cabinet_dark" soundscape="kitchenSound">
       <sprite name="cat" />
       
       <dialog>
@@ -347,7 +374,7 @@
       </dialog>
     </scene>
 
-    <scene title="What the Cat Would Say If She Could Talk" name="cat-surprised-uncomfortable" background="cabinet_dark">
+    <scene title="What the Cat Would Say If She Could Talk" name="cat-surprised-uncomfortable" background="cabinet_dark" soundscape="kitchenSound">
       <sprite name="cat" />
       
       <dialog>
@@ -359,7 +386,7 @@
       </dialog>
     </scene>
 
-    <scene title="What the Cat Would Say If She Could Talk" name="cat-scratch-ear" background="cabinet_dark">
+    <scene title="What the Cat Would Say If She Could Talk" name="cat-scratch-ear" background="cabinet_dark" soundscape="kitchenSound">
       <sprite name="cat" />
 
       <dialog goto="cat-waiting-for-question">
@@ -369,7 +396,7 @@
       </dialog>
     </scene>
 
-    <scene title="What the Cat Would Say If She Could Talk" name="cat-waiting-for-question" background="cabinet_dark">
+    <scene title="What the Cat Would Say If She Could Talk" name="cat-waiting-for-question" background="cabinet_dark" soundscape="kitchenSound">
       <sprite name="cat" />
       
       <dialog>
@@ -382,10 +409,10 @@
       </dialog>
     </scene>
 
-    <scene title="What the Cat Would Say If She Could Talk" name="cat-ask-about-dish-soap" background="cabinet_dark">
+    <scene title="What the Cat Would Say If She Could Talk" name="cat-ask-about-dish-soap" background="cabinet_dark" soundscape="kitchenSound">
       <sprite name="cat" />
       <setFlag name="catAskedRiddle" value="1" />
-      
+
       <dialog>
         <body>
           Eloise would look directly at me. "Ah," she would say, "The mysterious missing dish soap. I know where it is; I watch every placement of every item in this house quite closely."
@@ -417,7 +444,7 @@
        
     </scene>
 
-    <scene title="What the Cat Would Say If She Could Talk" name="cat-ask-riddle" background="cabinet_dark">
+    <scene title="What the Cat Would Say If She Could Talk" name="cat-ask-riddle" background="cabinet_dark" soundscape="kitchenSound">
       <sprite name="cat" />
       <setFlag name="catAskedRiddle" value="1" />
 
@@ -432,7 +459,7 @@
       
     </scene>
     
-    <scene title="What the Cat Would Say If She Could Talk" name="cat-riddle-no-answer" background="cabinet_dark">
+    <scene title="What the Cat Would Say If She Could Talk" name="cat-riddle-no-answer" background="cabinet_dark" soundscape="kitchenSound">
       <sprite name="cat" />
 
       <dialog goto="cabinet-cat-photo">
@@ -442,7 +469,7 @@
       </dialog>
     </scene>
 
-    <scene title="What the Cat Would Say If She Could Talk" name="cat-ask-about-hummingbird-hat" background="cabinet_dark">
+    <scene title="What the Cat Would Say If She Could Talk" name="cat-ask-about-hummingbird-hat" background="cabinet_dark" soundscape="kitchenSound">
       <sprite name="cat" />
 
       <dialog>
@@ -467,7 +494,7 @@
       </dialog>
     </scene>
 
-    <scene title="What the Cat Would Say If She Could Talk" name="cat-cloud-birds" background="cabinet_dark">
+    <scene title="What the Cat Would Say If She Could Talk" name="cat-cloud-birds" background="cabinet_dark" soundscape="kitchenSound">
       <sprite name="cat" />
       <setFlag name="catRevealedDishSoapLocation" value="1" />      
       
@@ -499,7 +526,7 @@
     </scene>
 
     <!-- Checking the mail -->
-    <scene title="Checking the Mail" name="check-mail" background="mailboxes">
+    <scene title="Checking the Mail" name="check-mail" background="mailboxes" soundscape="officeSound">
       <dialog conditionFlag="mailCollected">
         <body>
           I stepped out the apartment door and walked downstairs to the mailboxes, and suddenly rememberd I had already collected the mail.
@@ -521,8 +548,8 @@
       </dialog>
     </scene>
 
-    <scene title="Checking the Mail" name="collect-mail" background="mailboxes">
-      <setFlag flagName="mailCollected" value="1" />
+    <scene title="Checking the Mail" name="collect-mail" background="mailboxes" soundscape="officeSound">
+      <setFlag name="mailCollected" value="1" />
       
       <dialog>
         <body>
@@ -534,7 +561,7 @@
     </scene>
     
     <!-- Walking the dog -->
-    <scene title="Walking the Dog" name="walk-dog" background="dog_asleep">
+    <scene title="Walking the Dog" name="walk-dog" background="dog_asleep" soundscape="officeSound">
       <dialog goto="outside-the-apartment">
         <body>
           Hattie the dog was laying on the couch, half-asleep with her tongue hanging out a bit. All it took to rouse her was pulling her leash off its hook and jingling my keys. We walked down the stairs together, and out into the afternoon sun.
@@ -542,7 +569,7 @@
       </dialog>
     </scene>
     
-    <scene title="Just Outside the Apartment Building" name="outside-the-apartment" background="outside_apartment">
+    <scene title="Just Outside the Apartment Building" name="outside-the-apartment" background="outside_apartment" soundscape="outsideSound">
       <dialog>
         <body>
           Hattie the dog quickly ran over to a patch of grass between the street and sidewalk to do her business. I looked up at the trees in front of the apartment building, grateful for the shade.
@@ -553,7 +580,7 @@
       </dialog>
     </scene>
 
-    <scene title="The Park" name="dog-park" background="park">
+    <scene title="The Park" name="dog-park" background="park" soundscape="outsideSound">
       <setFlag name="beenToPark" value="1" />
       
       <dialog>
@@ -576,7 +603,7 @@
       </dialog>
     </scene>
 
-    <scene title="The Park" name="dog-park-sitting" background="park">    
+    <scene title="The Park" name="dog-park-sitting" background="park" soundscape="outsideSound">
       <dialog>
         <body>
           Hattie and I sat in the shade.
@@ -585,9 +612,9 @@
         <option goto="dog-park-stay-awake">I sat, but kept awake using the hummingbird's mantra.</option>
         <option goto="outside-the-apartment">I got back up and headed back with Hattie.</option>
       </dialog>
-  </scene>
+    </scene>
     
-    <scene title="The Park" name="wake-up-in-park" background="park">
+    <scene title="The Park" name="wake-up-in-park" background="park" soundscape="outsideSound">
       <dialog>
         <body>
           The cloud bird's exclamation woke me with a start. Or had I heard something else; maybe Hattie barking at a passerby? She was standing next to me, looking protective and a bit upset. I shouldn't have fallen asleep like that, but it was hard not to in the summer sun.
@@ -600,7 +627,7 @@
       </dialog>
     </scene>
 
-    <scene title="The Park" name="dog-park-stay-awake" background="park">
+    <scene title="The Park" name="dog-park-stay-awake" background="park" soundscape="outsideSound">
       <dialog conditionFlag="mailDelivered" goto="dog-park-sitting">
         <body>
           I sat with my back against the tree and recited the hummingbird's mantra, "awa awa awa." I felt a little sleepy, but I was at least able to keep my eyes open. The mail carrier had already passed, so there was no one for Hattie to bark at.
@@ -613,7 +640,7 @@
       </dialog>
     </scene>      
 
-    <scene title="The Park" name="dog-park-mailcarrier-walks-by" background="park">
+    <scene title="The Park" name="dog-park-mailcarrier-walks-by" background="park" soundscape="outsideSound">
       <setFlag name="mailDelivered" value="1" />
       <sprite name="mail_carrier" />
 
@@ -630,7 +657,7 @@
     </scene>
     
     <!-- The sky -->
-    <scene title="Looking at the Sky" name="park-sky" background="park_sky">
+    <scene title="Looking at the Sky" name="park-sky" background="park_sky" soundscape="outsideSound">
       <dialog>
         <body>
           The sky was mostly clear and blue that day, though a little cloud cover would have been a welcome relief. A few clouds drifted across at a leisurely pace.
@@ -644,7 +671,7 @@
     </scene>
 
     <!-- A pair of chatting cloud birds -->
-    <scene title="A Pair of Chatting Cloud Birds" name="chatting-birds" background="park_sky_dark">
+    <scene title="A Pair of Chatting Cloud Birds" name="chatting-birds" background="park_sky_dark" soundscape="outsideSound">
       <sprite name="chatting_birds" />
       <setFlag name="seenCloudBirds" value="1" />
       
@@ -691,7 +718,7 @@
     </scene>
 
     <!-- The school/kitten -->
-    <scene title="Outside the School" name="dog-school" background="outside_school">
+    <scene title="Outside the School" name="dog-school" background="outside_school" soundscape="playgroundSound">
       <dialog>
         <body>
           Hattie and I stood outside the elementary school down the street from the apartment. It was late afternoon so the children had already gone home for the day, except for those unlucky enough to be held after school in detention.
@@ -701,7 +728,7 @@
       </dialog>
     </scene>
 
-    <scene title="The Playground" name="dog-playground" background="playground">
+    <scene title="The Playground" name="dog-playground" background="playground" soundscape="playgroundSound">
       <dialog conditionFlag="encounteredKitten" goto="kitten">
         <body>
           As Hattie and I walked through the playground and over to the kitten by the swing set.
@@ -714,7 +741,7 @@
       </dialog>
     </scene>
     
-    <scene title="A Kitten in the Playground" name="kitten" background="playground_swingset">
+    <scene title="A Kitten in the Playground" name="kitten" background="playground_swingset" soundscape="playgroundSound">
       <sprite name="kitten" />
       <setFlag name="encounteredKitten" value="1" />
       
@@ -733,7 +760,7 @@
       </dialog>
     </scene>
 
-    <scene title="A Kitten in the Playground" name="kitten-refuse-wallet" background="playground_swingset">
+    <scene title="A Kitten in the Playground" name="kitten-refuse-wallet" background="playground_swingset" soundscape="playgroundSound">
       <sprite name="kitten" />
 
       <dialog goto="dog-school">
@@ -743,7 +770,7 @@
       </dialog>
     </scene>
     
-    <scene title="A Kitten in the Playground" name="kitten-request-hat" background="playground_swingset">
+    <scene title="A Kitten in the Playground" name="kitten-request-hat" background="playground_swingset" soundscape="playgroundSound">
       <sprite name="kitten" />
 
       <dialog>
@@ -770,7 +797,7 @@
       </dialog>
     </scene>
 
-    <scene title="A Kitten in the Playground" name="kitten-trade-for-hat" background="playground_swingset">
+    <scene title="A Kitten in the Playground" name="kitten-trade-for-hat" background="playground_swingset" soundscape="playgroundSound">
       <sprite name="kitten" />
       <setFlag name="hatRetrievedFromKitten" value="1" />
       
@@ -787,7 +814,7 @@
     </scene>
 
     <!-- Back to work -->
-    <scene title="Back to Work" name="back-to-work" background="back_to_work">
+    <scene title="Back to Work" name="back-to-work" background="back_to_work" soundscape="officeSound">
       <dialog goto="endgame">
         <body>
           With all these distractions addressed and resolved, my mind finally started to settle and focus. I opened my text editor and graphics program, and set to work.

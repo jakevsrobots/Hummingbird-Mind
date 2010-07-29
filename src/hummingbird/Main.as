@@ -1,11 +1,14 @@
 package hummingbird {
     import org.flixel.*;
     import AssetLibrary;
-
+    
+	import flash.events.*;
     import flash.net.SharedObject;
     
     [SWF(width="600", height="400", backgroundColor="#000000")];
 
+    [Frame(factoryClass="hummingbird.Preloader")]
+    
     public class Main extends FlxGame {
         public static var bgcolor:uint = 0xff000000;
         public static var library:AssetLibrary;        
@@ -19,6 +22,7 @@ package hummingbird {
         public static var gameFont:String;
 
         public static var saveGame:SharedObject;
+        public static var musicPlayer:MusicPlayer;
         
         public function Main():void {
             gameFont = 'zerofourbee';
@@ -37,6 +41,22 @@ package hummingbird {
             pause = new GamePause();
         }
 
+        override protected function update(event:Event):void {
+            super.update(event);
+            
+            if(Main.musicPlayer != null) {
+                Main.musicPlayer.update();
+
+                /*
+                if(FlxG.pause) {
+                    Main.musicPlayer.pause();
+                } else {
+                    Main.musicPlayer.play();
+                }*/
+            }
+
+        }
+        
         public static function save(flags:Object, currentScene:String):void {
             saveGame.data['flags'] = flags;
             saveGame.data['currentScene'] = currentScene;

@@ -33,5 +33,15 @@ package hummingbird {
 			add(new FlxSprite(4,92,ImgKeyPlus),true);
 			add((new FlxText(16,92,w-16,"Sound Up")).setFormat(Main.gameFont, 8, 0xffffffff, "center"),true);
         }
+
+        override public function update():void {
+            super.update();
+
+            if(FlxG.pause) {
+                Main.musicPlayer.pause();
+            } else {
+                Main.musicPlayer.play();
+            }
+        }
     }
 }

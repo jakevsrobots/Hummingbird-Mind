@@ -34,6 +34,7 @@ package hummingbird {
                 setFormat(Main.gameFont, 8, 0xff303030, 'left', 0xffa0a0a0);
                 _tf.backgroundColor = 0xff606060;
                 _tf.background = true;
+                //FlxG.play(Main.library.getAsset('hover'));
             } else {
                 setFormat(Main.gameFont, 8, 0xff000000, 'left', 0xffa0a0a0);
                 _tf.backgroundColor = 0xffffffff;

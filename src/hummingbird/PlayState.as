@@ -29,8 +29,19 @@ package hummingbird {
         private var suspendControl:Boolean = false;
 
         private var muteButton:MuteButton;
+
+        private var currentSoundscape:String;
+
+        private var playerDelay:Number;
+        private var playerDelayAccum:Number;        
+        private var playerDelayActive:Boolean = false;
+        private var delayedSoundFile:Class;
         
         override public function create():void {
+            if(Main.musicPlayer == null) {
+                Main.musicPlayer = new MusicPlayer('lentEtTriste');
+            }
+
             if(Main.saveGame.data['flags']) {
                 gameFlags = Main.saveGame.data['flags'];
             } else {
@@ -49,6 +60,7 @@ package hummingbird {
                     'title': sceneNode.@title,
                     'name': sceneNode.@name,
                     'background': sceneNode.@background,
+                    'soundscape': sceneNode.@soundscape,
                     'dialogs': []
                 };
                 
@@ -194,6 +206,7 @@ package hummingbird {
                     if(FlxG.mouse.justPressed() && !optionText.hidden && !mousePressHandled) {
                         loadScene(optionText.gotoName);
                         mousePressHandled = true;
+                        //FlxG.play(Main.library.getAsset('choose'));
                     }
                 } else {
                     optionText.hoverOff();
@@ -210,6 +223,16 @@ package hummingbird {
                         FlxG.state = new MenuState();
                     });
                 suspendControl = true;                
+            }
+
+            // update soundscape delay
+            if(playerDelayActive) {
+                playerDelayAccum += FlxG.elapsed;
+
+                if(playerDelayAccum > playerDelay) {
+                    FlxG.play(delayedSoundFile, 1.0, true);
+                    playerDelayActive = false;
+                }
             }
             
             super.update();
@@ -234,6 +257,38 @@ package hummingbird {
             currentSceneName = sceneName;
 
             Main.save(gameFlags, currentSceneName);
+
+            if(sceneData['soundscape'] != currentSoundscape) {
+                for each(var sound:FlxSound in FlxG.sounds) {
+                    if(sound.active) {
+                        sound.fadeOut(0.5);
+                    }
+                }
+                
+                FlxG.play(Main.library.getAsset(sceneData['soundscape']), 1.0, true);
+                playWithDelay(Main.library.getAsset(sceneData['soundscape']));
+                currentSoundscape = sceneData['soundscape'];
+            }
+            
+            /*
+            //throw new Error(Main.soundscapePlayers.hasOwnProperty(sceneData['soundscape']));
+                
+            if(!Main.soundscapePlayers.hasOwnProperty(sceneData['soundscape'])) {
+                Main.soundscapePlayers[sceneData['soundscape']] = new MusicPlayer(sceneData['soundscape'], 1.0);
+            }
+            
+            if(Main.currentSoundscape != sceneData['soundscape']) {
+                if(Main.soundscapePlayers.hasOwnProperty(Main.currentSoundscape)) {
+                    Main.soundscapePlayers[Main.currentSoundscape].fadeOut(0.5);
+                } else {
+                    FlxG.log('cannot fade out ' + Main.currentSoundscape + ' because it does not exist');
+                }
+                
+                Main.soundscapePlayers[sceneData['soundscape']].fadeIn(0.5);
+                Main.currentSoundscape = sceneData['soundscape'];
+            }
+            */
+            
             
             if(sceneData['background'] != currentBackgroundName) {
                 currentBackgroundName = sceneData['background'];
@@ -373,6 +428,18 @@ package hummingbird {
             } else {
                 return false;
             }
+        }
+
+        public function playWithDelay(soundFile:Class):void {
+            var sound:ExpandedSound = new ExpandedSound();
+            sound.loadEmbedded(soundFile);
+
+            delayedSoundFile = soundFile;
+            playerDelay = (sound.length / 1000) / 2;
+            playerDelayAccum = 0;
+            playerDelayActive = true;
+            
+            sound.destroy();
         }
     }
 }

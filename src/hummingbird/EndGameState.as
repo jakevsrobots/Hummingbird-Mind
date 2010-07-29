@@ -11,6 +11,12 @@ package hummingbird {
         private var gameCursor:FlxSprite;
         
         override public function create():void {
+            Main.clearSave();
+            
+            if(Main.musicPlayer == null) {
+                Main.musicPlayer = new MusicPlayer('lentEtTriste');
+            }
+            
             FlxG.flash.start(0xff000000, 1.5, function():void {
                     FlxG.flash.stop();
                 });
@@ -30,14 +36,14 @@ package hummingbird {
             
             startButton = new FlxButton(186, 170, function():void {
                     FlxG.fade.start(0xff000000, 1.25, function():void {
-                            FlxG.state = new PlayState();
+                            FlxG.state = new MenuState();
                             FlxG.fade.stop();
                         })
                 });
 
-            var buttonText:FlxText = new FlxText(0, 0, 96, 'Start over');
-            buttonText.setFormat(Main.gameFont, 16, 0xffaaaaaa, 'center');
-            var buttonHighlightText:FlxText = new FlxText(0, 0, 96, 'Start over');
+            var buttonText:FlxText = new FlxText(0, 0, 96, 'Menu');
+            buttonText.setFormat(Main.gameFont, 16, 0xffffffff, 'center');
+            var buttonHighlightText:FlxText = new FlxText(0, 0, 96, 'Menu');
             buttonHighlightText.setFormat(Main.gameFont, 16, 0xff606060, 'center', 0xff303030);
             
             startButton.loadText(buttonText, buttonHighlightText);
@@ -49,5 +55,6 @@ package hummingbird {
             add(thankYouText);
             add(gameCursor);
         }
+
     }
 }

@@ -1,5 +1,7 @@
 package org.flixel
 {
+    import hummingbird.Main;
+    
 	import flash.display.BitmapData;
 	import flash.display.Stage;
 	import flash.geom.Matrix;
@@ -462,6 +464,10 @@ package org.flixel
 				if((s != null) && s.active)
 					s.pause();
 			}
+
+            if(Main.musicPlayer != null) {
+                Main.musicPlayer.pause();
+            }
 		}
 		
 		/**
@@ -479,6 +485,10 @@ package org.flixel
 				if((s != null) && s.active)
 					s.play();
 			}
+
+            if(Main.musicPlayer != null) {
+                Main.musicPlayer.play();
+            }
 		}
 		
 		/**

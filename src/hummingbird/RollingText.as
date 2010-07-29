@@ -44,7 +44,6 @@ package hummingbird {
 
                         // Check if this word will wrap.
                         if(wordSeparatingChars.indexOf(nextChar) != -1) {
-                            FlxG.log('checking width because of next char: "' + nextChar + '"');
                             var nextWordEnd:uint = targetText.length;
 
                             for each(var separator:String in wordSeparatingChars) {
@@ -80,7 +79,6 @@ package hummingbird {
 
         private function runCallback():void {
             if(callback != null) {
-                FlxG.log('running callback');
                 callback();
             }
         }
