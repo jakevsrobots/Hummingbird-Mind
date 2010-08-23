@@ -1,6 +1,7 @@
 package hummingbird {
     import org.flixel.*;
-
+    import mochi.as3.*;
+    
     public class PlayState extends FlxState {
         private var currentBackgroundName:String;
         private var background:FlxSprite;
@@ -43,8 +44,10 @@ package hummingbird {
             }
 
             if(Main.saveGame.data['flags']) {
+                MochiEvents.startPlay('continue');                
                 gameFlags = Main.saveGame.data['flags'];
             } else {
+                MochiEvents.startPlay('play');
                 gameFlags = {};
             }
             

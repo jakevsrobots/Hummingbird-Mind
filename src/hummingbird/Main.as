@@ -4,17 +4,18 @@ package hummingbird {
     
 	import flash.events.*;
     import flash.net.SharedObject;
+
+    import mochi.as3.*;
     
     [SWF(width="600", height="400", backgroundColor="#000000")];
-
-    [Frame(factoryClass="hummingbird.Preloader")]
     
-    public class Main extends FlxGame {
+    [Frame(factoryClass="MochiPreloader")]
+    dynamic public class Main extends FlxGame {
         public static var bgcolor:uint = 0xff000000;
         public static var library:AssetLibrary;        
         public static var instance:Main;
 
-        [Embed(source='/../data/Antenna8.ttf', fontFamily='antenna8', embedAsCFF="false")]
+        [Embed(source='/../data/Antenna8.ttf', fontFamily='antenna8')]
         public static var Antenna8FontClass:String;
         [Embed(source='/../data/04B_03__.TTF', fontFamily='zerofourbee', embedAsCFF="false")]
         public static var ZeroFourFontClass:String;
@@ -39,6 +40,12 @@ package hummingbird {
             FlxState.bgColor = Main.bgcolor;
 
             pause = new GamePause();
+
+            addEventListener(Event.ADDED_TO_STAGE, initMochi);
+        }
+
+        private function initMochi(e:Event):void {
+            MochiServices.connect("619719942d9070da", this.parent);
         }
 
         override protected function update(event:Event):void {
@@ -47,12 +54,11 @@ package hummingbird {
             if(Main.musicPlayer != null) {
                 Main.musicPlayer.update();
 
-                /*
                 if(FlxG.pause) {
                     Main.musicPlayer.pause();
                 } else {
                     Main.musicPlayer.play();
-                }*/
+                }
             }
 
         }
